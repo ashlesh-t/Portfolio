@@ -1,98 +1,123 @@
 "use client"
 
+import useSWR from "swr"
 import { ScrollReveal, StaggerContainer, StaggerItem, Parallax } from "@/components/scroll-animations"
-import { Brain, Code, Database, Cpu, GraduationCap, Award } from "lucide-react"
+import { Brain, Code, Database, Cpu, GraduationCap, Award, Terminal, Sparkles, User, ShieldCheck } from "lucide-react"
+import { Spinner } from "@/components/ui/spinner"
+import type { Profile, Project, Research } from "@/lib/models"
+import { motion } from "framer-motion"
 
-const skills = [
-  { name: "Deep Learning", icon: Brain, level: 95 },
-  { name: "Computer Vision", icon: Cpu, level: 90 },
-  { name: "NLP", icon: Code, level: 88 },
-  { name: "Big Data", icon: Database, level: 85 },
-]
+const iconMap: Record<string, React.ElementType> = {
+  Brain, Code, Database, Cpu, GraduationCap, Award, Terminal, Sparkles
+}
 
-const highlights = [
-  { icon: GraduationCap, label: "PhD Stanford", value: "AI/ML" },
-  { icon: Award, label: "Publications", value: "45+" },
-  { icon: Brain, label: "Models Built", value: "120+" },
-  { icon: Database, label: "Datasets", value: "50TB+" },
-]
+const fetcher = (url: string) => fetch(url).then(res => res.json())
 
 export function AboutSection() {
+  const { data: profile, isLoading: isProfileLoading } = useSWR<Profile>("/api/profile", fetcher, { revalidateOnFocus: false })
+
+  if (isProfileLoading) {
+    return (
+      <section id="about" className="py-32 px-6 relative flex justify-center">
+        <Spinner className="w-8 h-8 text-primary" />
+      </section>
+    )
+  }
+
+  const bio = profile?.bio && profile.bio.length > 0 ? profile.bio : [
+    "I am an AI/ML Researcher and Engineer dedicated to building next-generation artificial intelligence systems.",
+    "My passion lies in bridging the gap between theoretical research and practical, real-world implementations."
+  ]
+
+  const highlights = profile?.highlights && profile.highlights.length > 0 ? profile.highlights : [
+    { icon: "GraduationCap", label: "University", value: "Computer Science" },
+    { icon: "Award", label: "Experience", value: "3+ Years" },
+    { icon: "Brain", label: "Models Built", value: `2+` },
+    { icon: "Database", label: "Research", value: `2+` },
+  ]
+
+  const aboutTags = profile?.aboutTags && profile.aboutTags.length > 0 ? profile.aboutTags : [
+    "Neural Architectures", "Distributed Systems", "RAG & Agentic AI"
+  ]
+
   return (
     <section id="about" className="py-32 px-6 relative">
       <div className="max-w-6xl mx-auto">
         <ScrollReveal>
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
-              About <span className="text-primary">Me</span>
+          <div className="flex flex-col items-center mb-16">
+             <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-mono mb-4">
+                <User className="w-3 h-3" />
+                <span>IDENTITY_VERIFIED</span>
+             </div>
+            <h2 className="text-4xl md:text-6xl font-bold mb-4 font-mono tracking-tighter text-center">
+              WHO<span className="text-primary glow-text">AMI</span>
             </h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Pioneering AI research at the intersection of theory and application
-            </p>
           </div>
         </ScrollReveal>
         
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          <Parallax offset={30}>
-            <ScrollReveal delay={0.2}>
-              <div className="space-y-6">
-                <p className="text-lg text-muted-foreground leading-relaxed">
-                  I am a Senior AI Research Scientist with over 8 years of experience in developing 
-                  state-of-the-art machine learning models. My work focuses on advancing neural 
-                  network architectures for computer vision and natural language understanding.
-                </p>
-                <p className="text-lg text-muted-foreground leading-relaxed">
-                  Currently leading research initiatives at a Fortune 500 tech company, where I 
-                  design and implement scalable AI solutions that process petabytes of data daily.
-                </p>
+        <div className="grid lg:grid-cols-12 gap-8 items-stretch">
+          {/* Main Card */}
+          <div className="lg:col-span-8">
+            <ScrollReveal>
+              <div className="h-full p-8 md:p-12 rounded-[2.5rem] border border-primary/20 bg-card/10 backdrop-blur-2xl relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-[100px] -mr-32 -mt-32 transition-all group-hover:bg-primary/10" />
+                <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent/5 rounded-full blur-[100px] -ml-32 -mb-32 transition-all group-hover:bg-accent/10" />
                 
-                {/* Skill bars */}
-                <div className="space-y-4 pt-6">
-                  {skills.map((skill, idx) => (
-                    <SkillBar key={skill.name} skill={skill} delay={idx * 0.1} />
-                  ))}
+                <div className="relative z-10 space-y-8">
+                  <div className="flex items-center gap-4 border-b border-primary/10 pb-8">
+                     <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-primary/20 to-accent/20 border border-primary/30 flex items-center justify-center shadow-[0_0_20px_rgba(0,255,65,0.1)]">
+                        <Brain className="w-10 h-10 text-primary" />
+                     </div>
+                     <div>
+                        <h3 className="text-2xl md:text-3xl font-bold text-foreground font-mono tracking-tight">{profile?.name || "ASHLESH"}</h3>
+                        <p className="text-primary font-mono text-sm tracking-widest uppercase">{profile?.title || "AI RESEARCHER & ENGINEER"}</p>
+                     </div>
+                  </div>
+
+                  <div className="space-y-6 text-lg md:text-xl text-muted-foreground leading-relaxed font-sans">
+                    {bio.map((paragraph, idx) => (
+                      <p key={idx} className="relative pl-6">
+                        <span className="absolute left-0 top-3 w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_8px_#00ff41]" />
+                        {paragraph}
+                      </p>
+                    ))}
+                  </div>
+
+                  <div className="pt-8 flex flex-wrap gap-4">
+                     {aboutTags.map((tag) => (
+                       <div key={tag} className="px-4 py-2 rounded-xl bg-white/5 border border-white/10 flex items-center gap-2">
+                          <ShieldCheck className="w-4 h-4 text-green-400" />
+                          <span className="text-xs font-mono text-muted-foreground">{tag}</span>
+                       </div>
+                     ))}
+                  </div>
                 </div>
               </div>
             </ScrollReveal>
-          </Parallax>
-          
-          <StaggerContainer className="grid grid-cols-2 gap-6" staggerDelay={0.15}>
-            {highlights.map((item) => (
-              <StaggerItem key={item.label}>
-                <div className="p-6 rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm hover:border-primary/50 transition-colors group">
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                    <item.icon className="w-6 h-6 text-primary" />
+          </div>
+
+          {/* Stats Sidebar */}
+          <div className="lg:col-span-4 flex flex-col gap-6">
+            {highlights.map((item, idx) => {
+              const Icon = iconMap[item.icon as string] || Code;
+              return (
+                <ScrollReveal key={item.label} delay={idx * 0.1}>
+                  <div className="p-6 rounded-[2rem] border border-primary/10 bg-card/10 backdrop-blur-xl hover:border-primary/40 transition-all hover:shadow-[0_0_30px_rgba(0,255,65,0.05)] group relative overflow-hidden h-full flex items-center gap-6">
+                    <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 group-hover:scale-110 transition-all">
+                      <Icon className="w-7 h-7 text-primary" />
+                    </div>
+                    <div>
+                      <div className="text-2xl font-bold text-foreground font-mono">{item.value}</div>
+                      <div className="text-xs text-muted-foreground font-mono uppercase tracking-widest">{item.label}</div>
+                    </div>
+                    <div className="absolute right-0 bottom-0 w-12 h-12 bg-primary/5 rounded-tl-full opacity-50" />
                   </div>
-                  <div className="text-3xl font-bold text-foreground mb-1">{item.value}</div>
-                  <div className="text-sm text-muted-foreground">{item.label}</div>
-                </div>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
+                </ScrollReveal>
+              )
+            })}
+          </div>
         </div>
       </div>
     </section>
-  )
-}
-
-function SkillBar({ skill, delay }: { skill: typeof skills[0]; delay: number }) {
-  return (
-    <ScrollReveal delay={delay}>
-      <div className="space-y-2">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <skill.icon className="w-4 h-4 text-primary" />
-            <span className="font-medium text-foreground">{skill.name}</span>
-          </div>
-          <span className="text-sm text-muted-foreground">{skill.level}%</span>
-        </div>
-        <div className="h-2 rounded-full bg-muted overflow-hidden">
-          <div
-            className="h-full rounded-full bg-gradient-to-r from-primary to-accent transition-all duration-1000"
-            style={{ width: `${skill.level}%` }}
-          />
-        </div>
-      </div>
-    </ScrollReveal>
   )
 }

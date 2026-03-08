@@ -109,7 +109,7 @@ function NeuralNodes() {
       {/* Neural nodes */}
       <instancedMesh ref={meshRef} args={[undefined, undefined, nodes.length]}>
         <sphereGeometry args={[1, 16, 16]} />
-        <meshBasicMaterial color="#00f0ff" transparent opacity={0.8} />
+        <meshBasicMaterial color="#00f0ff" transparent opacity={0.3} />
       </instancedMesh>
       
       {/* Connections */}
@@ -122,7 +122,7 @@ function NeuralNodes() {
             itemSize={3}
           />
         </bufferGeometry>
-        <lineBasicMaterial color="#00f0ff" transparent opacity={0.15} />
+        <lineBasicMaterial color="#00f0ff" transparent opacity={0.05} />
       </lineSegments>
     </group>
   )

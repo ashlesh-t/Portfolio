@@ -94,9 +94,12 @@ export async function fetchGitHubContributions(username?: string): Promise<GitHu
   
   // GitHub's GraphQL API for contribution data
   if (!GITHUB_TOKEN) {
-    // Return mock data if no token
+    console.warn("GITHUB_TOKEN is missing! Using mock contributions.");
     return generateMockContributions()
+  } else {
+    console.log(`Using GITHUB_TOKEN starting with: ${GITHUB_TOKEN.substring(0, 8)}...`);
   }
+
   
   const query = `
     query($username: String!) {

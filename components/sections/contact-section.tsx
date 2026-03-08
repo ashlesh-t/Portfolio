@@ -42,20 +42,14 @@ export function ContactSection() {
     setError(null)
     
     try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData)
-      })
-      
-      if (!response.ok) {
-        throw new Error("Failed to send message")
-      }
+      const subject = encodeURIComponent(`${formData.type.toUpperCase()}: ${formData.subject}`)
+      const body = encodeURIComponent(`${formData.message}\n\nFrom: ${formData.name}\nEmail: ${formData.email}`)
+      window.location.href = `mailto:ashleshat5@gmail.com?subject=${subject}&body=${body}`
       
       setIsSubmitted(true)
       setFormData(initialFormData)
     } catch (err) {
-      setError("Failed to send message. Please try again.")
+      setError("Failed to open email client. Please try again.")
     } finally {
       setIsSubmitting(false)
     }
@@ -95,25 +89,25 @@ export function ContactSection() {
                 <ContactItem
                   icon={<Mail className="w-5 h-5" />}
                   label="Email"
-                  value="sarah.chen@example.com"
-                  href="mailto:sarah.chen@example.com"
+                  value="ashleshat5@gmail.com"
+                  href="mailto:ashleshat5@gmail.com"
                 />
                 <ContactItem
                   icon={<MapPin className="w-5 h-5" />}
                   label="Location"
-                  value="San Francisco, CA"
+                  value="Bengaluru, India"
                 />
                 <ContactItem
                   icon={<Linkedin className="w-5 h-5" />}
                   label="LinkedIn"
-                  value="linkedin.com/in/sarahchen"
-                  href="https://linkedin.com"
+                  value="linkedin.com/in/ashlesh"
+                  href="https://www.linkedin.com/in/ashlesha-t-752823269/"
                 />
                 <ContactItem
                   icon={<Github className="w-5 h-5" />}
                   label="GitHub"
-                  value="github.com/sarahchen"
-                  href="https://github.com"
+                  value="github.com/ashlesh-t"
+                  href="https://github.com/ashlesh-t"
                 />
               </div>
               

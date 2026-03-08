@@ -5,11 +5,11 @@
 
 :root {
   /* Deep black AI lab background */
-  --background: oklch(0.07 0.01 270);
+  --background: oklch(0.04 0.01 270);
   --foreground: oklch(0.95 0.01 270);
   
   /* Cards with glassmorphism effect */
-  --card: oklch(0.12 0.015 270);
+  --card: oklch(0.08 0.02 270);
   --card-foreground: oklch(0.95 0.01 270);
   
   --popover: oklch(0.1 0.015 270);
@@ -111,7 +111,14 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
+    background-color: var(--background);
+    background-image: linear-gradient(to bottom, rgba(4, 4, 10, 0.98), rgba(4, 4, 10, 0.95)), url('/bg.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-blend-mode: darken;
   }
   
   /* Custom scrollbar for dark theme */

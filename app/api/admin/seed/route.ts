@@ -1,261 +1,127 @@
 import { NextResponse } from "next/server"
 import connectToDatabase from "@/lib/mongodb"
-import { ProjectModel, PublicationModel, ResearchModel } from "@/lib/models"
+import { ProjectModel, PublicationModel, ResearchModel, ProfileModel, ExperienceModel } from "@/lib/models"
 
-const mockProjects = [
+const myProfile = {
+  name: "Ashlesh T",
+  title: "Computer Science Engineering student with hands-on experience in Distributed Systems, full-stack development, machine learning, and cloud-native tools.",
+  bio: [
+    "Computer Science Engineering student at PES University (CGPA 8.71) with a passion for solving real-world engineering problems at scale.",
+    "I have hands-on experience in Distributed Systems, full-stack development, machine learning, and cloud-native tools.",
+    "Published researcher (VISAPP 2026) with a track record of building production-grade systems."
+  ],
+  email: "ashleshat5@gmail.com",
+  phone: "(+91) 7483611935",
+  location: "Bengaluru, India",
+  github: "https://github.com/ashlesh",
+  linkedin: "https://linkedin.com/in/ashlesh",
+  skills: [
+    { name: "Java & Spring", category: "Backend", level: 90, icon: "Code" },
+    { name: "Python & ML", category: "ML", level: 85, icon: "Brain" },
+    { name: "Distributed Systems", category: "Architecture", level: 80, icon: "Database" },
+    { name: "Docker & K8s", category: "DevOps", level: 85, icon: "Cpu" }
+  ],
+  highlights: [
+    { icon: "GraduationCap", label: "PES University", value: "B.Tech CS" },
+    { icon: "Award", label: "Published Paper", value: "VISAPP '26" },
+    { icon: "Code", label: "LeetCode", value: "600+" },
+    { icon: "Briefcase", label: "Internships", value: "2+" }
+  ]
+}
+
+const myExperience = [
   {
-    title: "Vision Transformer for Medical Imaging",
-    shortDescription: "State-of-the-art ViT architecture achieving 98.7% accuracy in tumor detection",
-    fullDescription: "Developed a custom Vision Transformer architecture specifically optimized for medical imaging applications. The model processes high-resolution CT scans and MRI images to detect various types of tumors with unprecedented accuracy. Implemented attention visualization for interpretability, crucial for medical applications.",
-    category: "Computer Vision",
-    technologies: ["PyTorch", "ViT", "CUDA", "TensorRT", "ONNX"],
-    status: "Completed",
-    metrics: {
-      accuracy: 98.7,
-      performance: "15ms inference",
-      impact: "50K+ scans analyzed"
-    },
-    githubUrl: "https://github.com/example/medical-vit",
-    demoUrl: "https://demo.example.com/medical-vit",
-    architecture: [
-      { name: "Input Layer", components: ["Image Preprocessing", "Patch Embedding", "Position Encoding"] },
-      { name: "Transformer Blocks", components: ["Multi-Head Attention", "MLP", "Layer Norm"] },
-      { name: "Classification Head", components: ["Global Average Pool", "Dense Layers", "Softmax"] }
+    company: "Boomi Software",
+    role: "Software Development Intern",
+    startDate: "Jan 2026",
+    endDate: "",
+    current: true,
+    description: [
+      "Identified and resolved critical production defect in concurrent architecture caused by non-daemon thread lifecycle management, preventing potential memory leaks in customer-facing systems.",
+      "Engineered automated Python-based pipeline for regression test branch discovery and health monitoring across Boomi Atomsphere environment, enabling faster CI/CD validation cycles."
     ],
+    technologies: ["Java", "Python", "Concurrency", "Boomi Atomsphere", "Spring Framework"],
+    order: 1
+  },
+  {
+    company: "GOwarm.ai",
+    role: "Software Development Intern",
+    startDate: "June 2025",
+    endDate: "Dec 2025",
+    current: false,
+    description: [
+      "Developed and optimized RESTful APIs and backend services in Java (Spring Boot) and Python, improving system performance and scalability.",
+      "Optimized MongoDB aggregation pipelines, reducing average query latency from 5s to 1.2s for high-volume data retrieval.",
+      "Built Salesforce and Zoho CRM connectors supporting bulk API queries and batch-based composite operations, improving integration efficiency and reducing API overhead.",
+      "Implemented frontend automation tools including a React.js Chrome extension and optimized bulk-select operations using JavaScript Sets, reducing lookup complexity from O(n) to O(1) for 1000+ records."
+    ],
+    technologies: ["Java (Spring Boot)", "Python", "FastAPI", "React.js", "MongoDB", "Docker", "Microservices"],
+    order: 2
+  }
+]
+
+const myProjects = [
+  {
+    title: "sparkSential – AI-Powered Credit Card Fraud Detection",
+    shortDescription: "Production-grade fraud detection using PySpark, Kafka, and Deep Learning",
+    fullDescription: "Built a production-grade fraud detection system leveraging PySpark for distributed ML and Kafka for real-time data streaming. Engineered a multi-layer ensemble combining XGBoost gradient boosting, deep neural networks, and statistical models to achieve 98%+ fraud classification accuracy. Designed microservice architecture for model serving with containerized inference and future MCP server integration for extensible anomaly detection.",
+    category: "Machine Learning",
+    technologies: ["PySpark", "Kafka", "XGBoost", "TensorFlow", "Python", "Microservices", "Docker", "Kubernetes"],
+    status: "Completed",
+    metrics: { accuracy: 98, performance: "Real-time streaming", impact: "High" },
     featured: true,
     order: 1
   },
   {
-    title: "Large Language Model Fine-tuning Pipeline",
-    shortDescription: "Efficient LoRA-based fine-tuning system for domain-specific LLMs",
-    fullDescription: "Built a comprehensive pipeline for fine-tuning large language models using LoRA and QLoRA techniques. The system reduces training costs by 90% while maintaining model quality. Includes automated evaluation, A/B testing framework, and deployment infrastructure.",
-    category: "NLP",
-    technologies: ["Transformers", "LoRA", "DeepSpeed", "Ray", "Weights & Biases"],
-    status: "In Progress",
-    metrics: {
-      accuracy: 94.2,
-      performance: "90% cost reduction",
-      impact: "10B tokens processed"
-    },
-    githubUrl: "https://github.com/example/llm-pipeline",
-    architecture: [
-      { name: "Data Pipeline", components: ["Dataset Curation", "Tokenization", "Batching"] },
-      { name: "Training", components: ["LoRA Adapters", "Gradient Checkpointing", "Mixed Precision"] },
-      { name: "Evaluation", components: ["Perplexity", "BLEU Score", "Human Eval"] }
-    ],
+    title: "Distributed Log & Node Monitoring System",
+    shortDescription: "Scalable real-time log ingestion and node health monitoring",
+    fullDescription: "A scalable system for real-time log ingestion and node health monitoring using Kafka and Fluentd. Implemented heartbeat-based failure detection with RabbitMQ and used NoSQL storage for anomaly tracking and diagnostic reporting. Evolving into a production-grade PaaS solution with NGINX and Kubernetes.",
+    category: "Distributed Systems",
+    technologies: ["Python", "Kafka", "Fluentd", "RabbitMQ", "Elasticsearch", "Docker", "React"],
+    status: "Completed",
     featured: true,
     order: 2
   },
   {
-    title: "Real-time Object Detection System",
-    shortDescription: "Edge-optimized YOLO variant running at 120 FPS on mobile devices",
-    fullDescription: "Engineered a highly optimized object detection model designed for mobile and edge deployment. The architecture combines neural architecture search with knowledge distillation to achieve state-of-the-art speed-accuracy tradeoffs on resource-constrained devices.",
-    category: "Computer Vision",
-    technologies: ["TensorFlow Lite", "CoreML", "NNAPI", "Quantization", "Pruning"],
+    title: "MyPay – UPI-Inspired Payment System",
+    shortDescription: "Microservice-based UPI payment simulation",
+    fullDescription: "Developed a microservice-based UPI payment simulation replicating real NPCI transaction flows. Implemented Spring Security with JWT and OAuth for secure API communication, and containerized services with Docker for deployment scalability.",
+    category: "Backend",
+    technologies: ["Java", "Spring Boot", "MongoDB", "Docker", "MVC"],
     status: "Completed",
-    metrics: {
-      accuracy: 91.5,
-      performance: "120 FPS on mobile",
-      impact: "1M+ daily users"
-    },
-    githubUrl: "https://github.com/example/edge-detection",
-    demoUrl: "https://demo.example.com/edge-detection",
-    architecture: [
-      { name: "Backbone", components: ["MobileNetV3", "Feature Pyramid Network"] },
-      { name: "Neck", components: ["PANet", "SPP"] },
-      { name: "Head", components: ["Anchor-free Detection", "NMS"] }
-    ],
     featured: false,
     order: 3
   },
   {
-    title: "Distributed Training Framework",
-    shortDescription: "Scalable infrastructure for training models across 1000+ GPUs",
-    fullDescription: "Designed and implemented a distributed training framework that enables efficient model training across thousands of GPUs. Features automatic checkpoint management, fault tolerance, and dynamic resource allocation. Reduced training time for 100B parameter models from weeks to days.",
-    category: "MLOps",
-    technologies: ["PyTorch", "NCCL", "Kubernetes", "Slurm", "Prometheus"],
+    title: "EcoAssist – Carbon Footprint Tracker",
+    shortDescription: "ML-powered app estimating carbon footprints",
+    fullDescription: "Engineered an ML-powered app to estimate individual carbon footprints based on lifestyle inputs. Integrated a LLaMA chatbot to provide personalized eco-friendly recommendations, and applied XGBoost for predictive analysis.",
+    category: "Full Stack ML",
+    technologies: ["Python", "XGBoost", "Next.js", "LLaMA", "PostgreSQL", "SQLite"],
     status: "Completed",
-    metrics: {
-      performance: "95% GPU utilization",
-      impact: "100B+ parameters trained"
-    },
-    githubUrl: "https://github.com/example/distributed-training",
-    architecture: [
-      { name: "Orchestration", components: ["Job Scheduler", "Resource Manager", "Health Monitor"] },
-      { name: "Communication", components: ["All-Reduce", "Ring Topology", "Gradient Compression"] },
-      { name: "Storage", components: ["Distributed Checkpointing", "Data Sharding", "Caching"] }
-    ],
-    featured: true,
-    order: 4
-  },
-  {
-    title: "Neural Architecture Search AutoML",
-    shortDescription: "Automated discovery of optimal architectures for specific tasks",
-    fullDescription: "Developed an AutoML system using neural architecture search to automatically discover optimal model architectures for given tasks. The system has discovered architectures that outperform hand-designed models on multiple benchmarks while requiring minimal human intervention.",
-    category: "Deep Learning",
-    technologies: ["JAX", "Optuna", "Ray Tune", "Neural Networks", "Genetic Algorithms"],
-    status: "In Progress",
-    metrics: {
-      accuracy: 96.8,
-      performance: "10x faster search",
-      impact: "15 novel architectures"
-    },
-    architecture: [
-      { name: "Search Space", components: ["Operation Types", "Connection Patterns", "Hyperparameters"] },
-      { name: "Search Strategy", components: ["Evolutionary Search", "Reinforcement Learning", "Differentiable"] },
-      { name: "Evaluation", components: ["Weight Sharing", "Early Stopping", "Proxy Tasks"] }
-    ],
     featured: false,
-    order: 5
+    order: 4
   }
 ]
 
-const mockPublications = [
+const myResearch = [
   {
-    title: "Scaling Vision Transformers to 22 Billion Parameters",
-    authors: ["Sarah Chen", "et al."],
-    venue: "NeurIPS",
-    year: 2024,
-    abstract: "We present ViT-22B, the largest dense Vision Transformer model to date. We demonstrate that scaling up the model leads to improved performance on a variety of vision benchmarks while maintaining computational efficiency through novel architectural innovations.",
-    citations: 234,
-    doi: "10.1234/example",
-    links: {
-      paper: "https://arxiv.org/example",
-      code: "https://github.com/example/vit-22b"
-    },
-    tags: ["Vision Transformer", "Scaling", "Computer Vision"]
-  },
-  {
-    title: "Efficient Attention Mechanisms for Long Sequences",
-    authors: ["Sarah Chen", "John Smith", "Alice Johnson"],
-    venue: "ICML",
-    year: 2024,
-    abstract: "We introduce a novel attention mechanism that reduces computational complexity from O(n²) to O(n log n) while preserving model quality. Our approach enables processing of sequences up to 1M tokens on consumer hardware.",
-    citations: 456,
-    doi: "10.1234/example2",
-    links: {
-      paper: "https://arxiv.org/example",
-      code: "https://github.com/example/efficient-attention"
-    },
-    tags: ["Attention", "Transformers", "Efficiency"]
-  },
-  {
-    title: "Self-Supervised Learning for Medical Image Analysis",
-    authors: ["Sarah Chen", "Medical AI Team"],
-    venue: "Nature Machine Intelligence",
-    year: 2023,
-    abstract: "We present a self-supervised learning framework specifically designed for medical imaging that achieves state-of-the-art results on tumor detection, segmentation, and classification tasks with 90% less labeled data.",
-    citations: 789,
-    doi: "10.1038/example",
-    links: {
-      paper: "https://nature.com/example"
-    },
-    tags: ["Medical AI", "Self-Supervised Learning", "Healthcare"]
-  },
-  {
-    title: "Neural Architecture Search: A Comprehensive Survey",
-    authors: ["Sarah Chen", "David Lee"],
-    venue: "JMLR",
-    year: 2023,
-    abstract: "A comprehensive survey of neural architecture search methods, covering search spaces, search strategies, and performance estimation. We analyze over 500 papers and provide guidelines for practitioners.",
-    citations: 1234,
-    doi: "10.1234/example4",
-    links: {
-      paper: "https://jmlr.org/example"
-    },
-    tags: ["AutoML", "NAS", "Survey"]
-  },
-  {
-    title: "Multimodal Foundation Models for Scientific Discovery",
-    authors: ["Sarah Chen", "Science AI Consortium"],
-    venue: "Science",
-    year: 2023,
-    abstract: "We introduce a multimodal foundation model trained on scientific literature, experimental data, and domain knowledge. The model accelerates scientific discovery by predicting experimental outcomes and suggesting novel hypotheses.",
-    citations: 567,
-    doi: "10.1126/example",
-    links: {
-      paper: "https://science.org/example",
-      code: "https://github.com/example/sci-foundation"
-    },
-    tags: ["Foundation Models", "Science AI", "Multimodal"]
-  }
-]
-
-const mockResearch = [
-  {
-    title: "Attention Is All You Need: Transformer Architecture Improvements",
-    description: "Presented novel improvements to transformer attention mechanisms, achieving 15% faster training while maintaining accuracy.",
-    date: "2024-11-15",
+    title: "Unveiling AI Manipulated Medical Images: Detection and Localization",
+    description: "Developed a dual-stream deep learning framework for detecting and precisely localizing AI-manipulated regions in medical imaging (lung CT scans). Engineered ensemble architecture combining DenseNet-121, EfficientNet-B4, FFT-based frequency analysis, and Error Level Analysis (ELA) for robust artifact detection. Implemented GAN-based augmentation with pseudo-labeling to enhance generalization; conducted explainability analysis for publication readiness.",
+    date: "2026-01-01",
     type: "paper",
-    venue: "NeurIPS 2024",
-    authors: ["Sarah Chen", "John Smith", "Alice Johnson"],
-    citations: 127,
-    links: {
-      paper: "https://arxiv.org/example",
-      code: "https://github.com/example/transformer-improvements"
-    }
+    venue: "VISAPP 2026 (Accepted)",
+    authors: ["Ashlesh T", "et al."],
+    links: { code: "https://github.com/ashlesh" }
   },
   {
-    title: "Best Paper Award - ICML 2024",
-    description: "Recognized for groundbreaking work on efficient neural architecture search methods.",
-    date: "2024-07-20",
-    type: "award",
-    venue: "ICML 2024"
-  },
-  {
-    title: "Scaling Laws for Vision Transformers",
-    description: "Comprehensive study on how vision transformer performance scales with model size and training data.",
-    date: "2024-05-10",
+    title: "IAPP – Iterative Alignment Pseudo Pairing",
+    description: "Self-learning model for image-text pairing using EfficientNet and FAISS similarity scoring. Achieved accuracy comparable to OpenAI's CLIP without supervised pre-training, demonstrating the viability of unsupervised multimodal learning.",
+    date: "2025-01-01",
     type: "paper",
-    venue: "CVPR 2024",
-    authors: ["Sarah Chen", "Michael Brown", "Emma Davis"],
-    citations: 234,
-    links: {
-      paper: "https://arxiv.org/example",
-      slides: "https://slides.example.com"
-    }
-  },
-  {
-    title: "Keynote: The Future of AI Systems",
-    description: "Delivered keynote on emerging trends in AI systems design and the path toward more efficient models.",
-    date: "2024-03-15",
-    type: "talk",
-    venue: "AI Summit 2024",
-    links: {
-      video: "https://youtube.com/example"
-    }
-  },
-  {
-    title: "Efficient Fine-tuning of Foundation Models",
-    description: "Novel parameter-efficient techniques for adapting large models to downstream tasks with minimal compute.",
-    date: "2023-12-01",
-    type: "paper",
-    venue: "EMNLP 2023",
-    authors: ["Sarah Chen", "David Lee", "Rachel Kim"],
-    citations: 456,
-    links: {
-      paper: "https://arxiv.org/example",
-      code: "https://github.com/example/efficient-finetuning"
-    }
-  },
-  {
-    title: "Research Lead - AI Lab",
-    description: "Promoted to Research Lead, overseeing a team of 15 researchers working on next-generation AI systems.",
-    date: "2023-09-01",
-    type: "milestone"
-  },
-  {
-    title: "Multi-modal Learning Without Labels",
-    description: "Self-supervised approach for learning joint representations across vision and language modalities.",
-    date: "2023-06-20",
-    type: "paper",
-    venue: "ICLR 2023",
-    authors: ["Sarah Chen", "James Wilson"],
-    citations: 789,
-    links: {
-      paper: "https://arxiv.org/example",
-      code: "https://github.com/example/multimodal-ssl"
-    }
+    venue: "Independent Research",
+    authors: ["Ashlesh T"],
+    links: { code: "https://github.com/ashlesh" }
   }
 ]
 
@@ -267,13 +133,16 @@ export async function POST() {
     await ProjectModel.deleteMany({})
     await PublicationModel.deleteMany({})
     await ResearchModel.deleteMany({})
+    await ProfileModel.deleteMany({})
+    await ExperienceModel.deleteMany({})
 
-    // Insert mock data
-    await ProjectModel.insertMany(mockProjects)
-    await PublicationModel.insertMany(mockPublications)
-    await ResearchModel.insertMany(mockResearch)
+    // Insert user specific data
+    await ProfileModel.create(myProfile)
+    await ExperienceModel.insertMany(myExperience)
+    await ProjectModel.insertMany(myProjects)
+    await ResearchModel.insertMany(myResearch)
 
-    return NextResponse.json({ message: "Database seeded successfully with mock data!" })
+    return NextResponse.json({ message: "Database seeded successfully with Ashlesh's real data!" })
   } catch (error) {
     console.error("Error seeding database:", error)
     return NextResponse.json({ error: "Failed to seed database" }, { status: 500 })

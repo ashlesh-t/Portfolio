@@ -6,7 +6,7 @@ const socialLinks = [
   { icon: Github, href: "https://github.com", label: "GitHub" },
   { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
   { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
-  { icon: Mail, href: "mailto:sarah@example.com", label: "Email" },
+  { icon: Mail, href: "mailto:ashlesh@example.com", label: "Email" },
 ]
 
 const quickLinks = [
@@ -30,7 +30,7 @@ export function Footer() {
               <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
                 <Brain className="w-5 h-5 text-primary" />
               </div>
-              <span className="font-bold text-foreground">Dr. Sarah Chen</span>
+              <span className="font-bold text-foreground">Ashlesh</span>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
               AI/ML Researcher and Engineer pushing the boundaries of artificial intelligence
@@ -77,7 +77,7 @@ export function Footer() {
         
         <div className="mt-12 pt-6 border-t border-border/50 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-sm text-muted-foreground">
-            &copy; {currentYear} Dr. Sarah Chen. All rights reserved.
+            &copy; {currentYear} Ashlesh. All rights reserved.
           </p>
           <p className="text-sm text-muted-foreground">
             Built with Next.js & Three.js

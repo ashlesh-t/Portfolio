@@ -1,0 +1,15 @@
+{
+  "/adminmode/page": "app/adminmode/page.js",
+  "/api/achievements/route": "app/api/achievements/route.js",
+  "/api/certifications/route": "app/api/certifications/route.js",
+  "/api/experience/route": "app/api/experience/route.js",
+  "/api/github/contributions/route": "app/api/github/contributions/route.js",
+  "/api/github/repos/route": "app/api/github/repos/route.js",
+  "/api/github/stats/route": "app/api/github/stats/route.js",
+  "/api/profile/resume/route": "app/api/profile/resume/route.js",
+  "/api/profile/route": "app/api/profile/route.js",
+  "/api/projects/route": "app/api/projects/route.js",
+  "/api/publications/route": "app/api/publications/route.js",
+  "/api/research/route": "app/api/research/route.js",
+  "/page": "app/page.js"
+}

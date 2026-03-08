@@ -2,26 +2,33 @@
 
 import { useRef, useEffect, useState } from "react"
 import { motion, useInView } from "framer-motion"
-import { ScrollReveal, StaggerContainer, StaggerItem, PulseGlow } from "@/components/scroll-animations"
-import { TrendingUp, Brain, Database, FlaskConical, Target, Zap, BarChart3, LineChart } from "lucide-react"
+import { ScrollReveal, StaggerContainer, StaggerItem } from "@/components/scroll-animations"
+import { TrendingUp, Brain, Database, FlaskConical, Target, Zap, BarChart3, LineChart, Cpu, Terminal } from "lucide-react"
+import useSWR from "swr"
+import type { Profile } from "@/lib/models"
+import { Spinner } from "@/components/ui/spinner"
 
 interface Metric {
   id: string
   label: string
   value: number
   suffix: string
-  icon: React.ElementType
+  icon: string
   color: string
   description: string
 }
 
-const impactMetrics: Metric[] = [
+const iconMap: Record<string, any> = {
+  Brain, Database, Target, FlaskConical, Zap, Cpu, Terminal, TrendingUp
+}
+
+const defaultImpactMetrics: Metric[] = [
   {
     id: "models",
     label: "Total Models Built",
     value: 127,
     suffix: "+",
-    icon: Brain,
+    icon: "Brain",
     color: "#00f0ff",
     description: "Production-ready AI models deployed"
   },
@@ -30,7 +37,7 @@ const impactMetrics: Metric[] = [
     label: "Datasets Processed",
     value: 50,
     suffix: "TB+",
-    icon: Database,
+    icon: "Database",
     color: "#a855f7",
     description: "Training data curated and processed"
   },
@@ -39,7 +46,7 @@ const impactMetrics: Metric[] = [
     label: "Accuracy Improvements",
     value: 23,
     suffix: "%",
-    icon: Target,
+    icon: "Target",
     color: "#22c55e",
     description: "Average improvement over baselines"
   },
@@ -48,20 +55,59 @@ const impactMetrics: Metric[] = [
     label: "Research Experiments",
     value: 2500,
     suffix: "+",
-    icon: FlaskConical,
+    icon: "FlaskConical",
     color: "#f59e0b",
     description: "Controlled experiments conducted"
   },
 ]
 
-const performanceMetrics = [
-  { label: "Inference Latency", value: 15, unit: "ms", target: 20, better: "lower" },
-  { label: "Training Efficiency", value: 94, unit: "%", target: 90, better: "higher" },
-  { label: "Model Accuracy", value: 98.7, unit: "%", target: 95, better: "higher" },
-  { label: "GPU Utilization", value: 96, unit: "%", target: 85, better: "higher" },
+const defaultPerformanceMetrics = [
+  { label: "Inference Latency", value: 15, unit: "ms", target: 20, better: "lower" as const },
+  { label: "Training Efficiency", value: 94, unit: "%", target: 90, better: "higher" as const },
+  { label: "Model Accuracy", value: 98.7, unit: "%", target: 95, better: "higher" as const },
+  { label: "GPU Utilization", value: 96, unit: "%", target: 85, better: "higher" as const },
 ]
 
+const defaultResearchActivity = [
+  { month: "Jan", count: 12 },
+  { month: "Feb", count: 19 },
+  { month: "Mar", count: 15 },
+  { month: "Apr", count: 25 },
+  { month: "May", count: 22 },
+  { month: "Jun", count: 30 },
+  { month: "Jul", count: 28 },
+  { month: "Aug", count: 35 },
+  { month: "Sep", count: 40 },
+  { month: "Oct", count: 38 },
+  { month: "Nov", count: 45 },
+  { month: "Dec", count: 52 },
+]
+
+const fetcher = (url: string) => fetch(url).then(res => res.json())
+
 export function MetricsSection() {
+  const { data: profile, isLoading } = useSWR<Profile>("/api/profile", fetcher)
+
+  if (isLoading) {
+    return (
+      <section id="metrics" className="py-32 px-6 flex justify-center">
+        <Spinner className="w-8 h-8 text-primary" />
+      </section>
+    )
+  }
+
+  const impactMetrics = profile?.impactMetrics && profile.impactMetrics.length > 0 
+    ? profile.impactMetrics 
+    : defaultImpactMetrics
+
+  const performanceMetrics = profile?.performanceMetrics && profile.performanceMetrics.length > 0 
+    ? profile.performanceMetrics 
+    : defaultPerformanceMetrics
+
+  const researchActivity = profile?.researchActivity && profile.researchActivity.length > 0 
+    ? profile.researchActivity 
+    : defaultResearchActivity
+
   return (
     <section id="metrics" className="py-32 px-6 relative overflow-hidden">
       {/* Background decoration */}
@@ -109,7 +155,7 @@ export function MetricsSection() {
           </div>
         </ScrollReveal>
         
-        {/* Activity graph placeholder */}
+        {/* Activity graph */}
         <ScrollReveal delay={0.3}>
           <div className="mt-12 p-8 rounded-3xl border border-border/50 bg-card/30 backdrop-blur-sm">
             <div className="flex items-center gap-3 mb-6">
@@ -118,7 +164,7 @@ export function MetricsSection() {
               </div>
               <h3 className="text-xl font-semibold text-foreground">Research Activity</h3>
             </div>
-            <ActivityChart />
+            <ActivityChart data={researchActivity} />
           </div>
         </ScrollReveal>
       </div>
@@ -126,10 +172,11 @@ export function MetricsSection() {
   )
 }
 
-function MetricCard({ metric }: { metric: Metric }) {
+function MetricCard({ metric }: { metric: any }) {
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true })
   const [count, setCount] = useState(0)
+  const Icon = iconMap[metric.icon] || Brain
   
   useEffect(() => {
     if (!isInView) return
@@ -171,7 +218,7 @@ function MetricCard({ metric }: { metric: Metric }) {
           className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
           style={{ backgroundColor: `${metric.color}15` }}
         >
-          <metric.icon className="w-6 h-6" style={{ color: metric.color }} />
+          <Icon className="w-6 h-6" style={{ color: metric.color }} />
         </div>
         
         <div className="flex items-baseline gap-1 mb-2">
@@ -195,13 +242,13 @@ function PerformanceBar({
   metric, 
   delay 
 }: { 
-  metric: typeof performanceMetrics[0]
+  metric: any
   delay: number 
 }) {
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true })
   
-  const percentage = (metric.value / 100) * 100
+  const percentage = Math.min(100, (metric.value / (metric.target * 1.2)) * 100)
   const isGood = metric.better === "higher" 
     ? metric.value >= metric.target 
     : metric.value <= metric.target
@@ -243,30 +290,27 @@ function PerformanceBar({
   )
 }
 
-function ActivityChart() {
+function ActivityChart({ data }: { data: any[] }) {
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true })
   
-  // Generate mock monthly data
-  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-  const data = [12, 19, 15, 25, 22, 30, 28, 35, 40, 38, 45, 52]
-  const maxValue = Math.max(...data)
+  const maxValue = Math.max(...data.map(d => d.count), 1)
   
   return (
     <div ref={ref} className="h-48">
       <div className="flex items-end justify-between h-full gap-2">
-        {data.map((value, idx) => {
-          const height = (value / maxValue) * 100
+        {data.map((item, idx) => {
+          const height = (item.count / maxValue) * 100
           return (
-            <div key={months[idx]} className="flex-1 flex flex-col items-center gap-2">
+            <div key={item.month} className="flex-1 flex flex-col items-center gap-2">
               <motion.div
                 initial={{ height: 0 }}
                 animate={isInView ? { height: `${height}%` } : { height: 0 }}
                 transition={{ duration: 0.5, delay: idx * 0.05 }}
                 className="w-full rounded-t-md bg-gradient-to-t from-primary/50 to-primary hover:from-primary hover:to-accent transition-colors cursor-pointer"
-                title={`${months[idx]}: ${value} experiments`}
+                title={`${item.month}: ${item.count} contributions`}
               />
-              <span className="text-xs text-muted-foreground">{months[idx]}</span>
+              <span className="text-xs text-muted-foreground">{item.month}</span>
             </div>
           )
         })}

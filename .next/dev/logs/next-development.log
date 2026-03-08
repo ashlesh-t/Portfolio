@@ -1,0 +1,365 @@
+[00:00:01.999] Server  WARN    ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+[00:00:02.202] Server  LOG     ✓ Ready in 1772ms
+[00:00:07.687] Server  ERROR   ⨯ ReferenceError: AnimatePresence is not defined
+[00:00:07.706] Server  ERROR   ⨯ ReferenceError: AnimatePresence is not defined
+[00:00:07.882] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:07.896] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:08.134] Browser ERROR   uncaughtError: ReferenceError: AnimatePresence is not defined
+[00:00:08.135] Browser ERROR   uncaughtError: ReferenceError: AnimatePresence is not defined
+[00:01:58.641] Server  WARN    ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:01:58.682] Server  LOG     ✓ Compiled in 226ms
+[00:01:58.880] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:59.622] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:01:59.622] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:01:59.622] Browser LOG     %c[Vercel Web Analytics]%c [view] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1773002716005} /_vercel/insights/view
+[00:02:02.224] Server  LOG     Using GITHUB_TOKEN starting with: github_p...
+[00:02:02.666] Browser WARN    Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly.
+[00:02:43.870] Server  LOG     ✓ Compiled in 76ms
+[00:03:56.243] Server  LOG     ✓ Compiled in 34ms
+[00:05:43.547] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:05:43.696] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:05:43.696] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/adminmode","route":"/adminmode"}
+[00:05:43.696] Browser LOG     %c[Vercel Web Analytics]%c [view] http://localhost:3000/adminmode color: rgb(120, 120, 120) color: inherit {"dp":"/adminmode","o":"http://localhost:3000/adminmode","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1773002940620} /_vercel/insights/view
+[00:08:31.555] Server  LOG     Using GITHUB_TOKEN starting with: github_p...
+[00:08:31.599] Browser LOG     %c[Vercel Web Analytics]%c [view] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1773003108490} /_vercel/insights/view
+[00:08:31.723] Browser WARN    Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly.
+[00:08:53.245] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:08:53.245] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:08:53.245] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/adminmode","route":"/adminmode"}
+[00:08:53.245] Browser LOG     %c[Vercel Web Analytics]%c [view] http://localhost:3000/adminmode color: rgb(120, 120, 120) color: inherit {"dp":"/adminmode","o":"http://localhost:3000/adminmode","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1773003129670} /_vercel/insights/view
+[00:11:40.693] Server  LOG     Using GITHUB_TOKEN starting with: github_p...
+[00:11:40.803] Browser LOG     %c[Vercel Web Analytics]%c [view] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1773003297646} /_vercel/insights/view
+[00:11:40.803] Browser WARN    Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly.
+[00:15:08.071] Server  LOG     ✓ Compiled in 95ms
+[00:15:26.844] Server  LOG     ✓ Compiled in 70ms
+[00:15:43.368] Server  LOG     ✓ Compiled in 43ms
+[00:15:47.985] Server  LOG     ✓ Compiled in 34ms
+[00:17:00.757] Server  LOG     ✓ Compiled in 83ms
+[00:17:41.534] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:17:41.813] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:17:41.813] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:17:41.813] Browser LOG     %c[Vercel Web Analytics]%c [view] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1773003658697} /_vercel/insights/view
+[00:17:41.859] Server  LOG     Using GITHUB_TOKEN starting with: github_p...
+[00:17:41.972] Browser WARN    Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly.
+[00:18:59.335] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:18:59.336] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:18:59.336] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/adminmode","route":"/adminmode"}
+[00:18:59.336] Browser LOG     %c[Vercel Web Analytics]%c [view] http://localhost:3000/adminmode color: rgb(120, 120, 120) color: inherit {"dp":"/adminmode","o":"http://localhost:3000/adminmode","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1773003735507} /_vercel/insights/view
+[00:19:19.869] Server  LOG     Using GITHUB_TOKEN starting with: github_p...
+[00:19:19.983] Browser LOG     %c[Vercel Web Analytics]%c [view] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1773003756832} /_vercel/insights/view
+[00:19:19.983] Browser WARN    Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly.
+[00:19:30.823] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:19:30.823] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:19:30.823] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/adminmode","route":"/adminmode"}
+[00:19:30.823] Browser LOG     %c[Vercel Web Analytics]%c [view] http://localhost:3000/adminmode color: rgb(120, 120, 120) color: inherit {"dp":"/adminmode","o":"http://localhost:3000/adminmode","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1773003767136} /_vercel/insights/view
+[00:19:48.364] Server  LOG     Using GITHUB_TOKEN starting with: github_p...
+[00:19:48.492] Browser LOG     %c[Vercel Web Analytics]%c [view] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1773003785294} /_vercel/insights/view
+[00:19:48.492] Browser WARN    Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly.
+[00:22:51.459] Server  LOG     ✓ Compiled in 80ms
+[00:22:55.449] Server  LOG     ✓ Compiled in 76ms
+[00:23:00.279] Server  LOG     ✓ Compiled in 27ms
+[00:23:09.543] Server  LOG     ✓ Compiled in 123ms
+[00:23:10.456] Browser ERROR   ./components/navigation.tsx:133:17
+Parsing ecmascript source code failed
+  131 |               <Menu className="w-6 h-6" />
+  132 |             </Button>
+> 133 |           </div>
+      |                 ^
+> 134 |         </nav>
+      | ^^^^^^^^^
+  135 |       </motion.header>
+  136 |       
+  137 |       {/* Mobile Menu */}
+
+Expected '</', got 'jsx text'
+
+Import trace:
+  Server Component:
+    ./components/navigation.tsx
+    ./app/page.tsx
+[00:23:38.294] Server  LOG     ✓ Compiled in 63ms
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.367] Browser ERROR   uncaughtError: Error: THREE.WebGLAttributes: The size of the buffer attribute's array buffer does not match the original size. Resizing buffer attributes is not supported.
+[00:24:20.692] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:24:20.882] Server  LOG     Using GITHUB_TOKEN starting with: github_p...
+[00:24:20.904] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:24:20.904] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:24:20.904] Browser LOG     %c[Vercel Web Analytics]%c [view] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1773004057819} /_vercel/insights/view
+[00:24:21.027] Browser WARN    Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly.
+[00:24:59.362] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:24:59.529] Server  LOG     Using GITHUB_TOKEN starting with: github_p...
+[00:24:59.558] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:24:59.558] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:24:59.558] Browser LOG     %c[Vercel Web Analytics]%c [view] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1773004096474} /_vercel/insights/view
+[00:24:59.718] Browser WARN    Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly.
+[00:25:20.883] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:25:20.883] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:25:20.883] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/adminmode","route":"/adminmode"}
+[00:25:20.883] Browser LOG     %c[Vercel Web Analytics]%c [view] http://localhost:3000/adminmode color: rgb(120, 120, 120) color: inherit {"dp":"/adminmode","o":"http://localhost:3000/adminmode","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1773004115028} /_vercel/insights/view
+[00:26:27.669] Server  LOG     Using GITHUB_TOKEN starting with: github_p...
+[00:26:27.777] Browser LOG     %c[Vercel Web Analytics]%c [view] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1773004184631} /_vercel/insights/view
+[00:26:27.777] Browser WARN    Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly.
+[00:29:29.592] Server  LOG     ✓ Compiled in 31ms
+[00:29:40.241] Server  LOG     ✓ Compiled in 49ms
+[00:29:50.062] Server  LOG     ✓ Compiled in 95ms
+[00:29:58.863] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:29:58.892] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:29:58.892] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/adminmode","route":"/adminmode"}
+[00:29:58.892] Browser LOG     %c[Vercel Web Analytics]%c [view] http://localhost:3000/adminmode color: rgb(120, 120, 120) color: inherit {"dp":"/adminmode","o":"http://localhost:3000/adminmode","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1773004395816} /_vercel/insights/view
+[00:31:01.579] Server  LOG     Using GITHUB_TOKEN starting with: github_p...
+[00:31:01.613] Browser LOG     %c[Vercel Web Analytics]%c [view] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1773004458515} /_vercel/insights/view
+[00:31:01.812] Browser WARN    Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly.
+[00:31:28.351] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:31:28.351] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:31:28.351] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/adminmode","route":"/adminmode"}
+[00:31:28.351] Browser LOG     %c[Vercel Web Analytics]%c [view] http://localhost:3000/adminmode color: rgb(120, 120, 120) color: inherit {"dp":"/adminmode","o":"http://localhost:3000/adminmode","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1773004484467} /_vercel/insights/view
+[00:32:10.213] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:32:10.361] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:32:10.361] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/adminmode","route":"/adminmode"}
+[00:32:10.361] Browser LOG     %c[Vercel Web Analytics]%c [view] http://localhost:3000/adminmode color: rgb(120, 120, 120) color: inherit {"dp":"/adminmode","o":"http://localhost:3000/adminmode","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1773004527285} /_vercel/insights/view
+[00:32:13.862] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:32:14.008] Server  LOG     Using GITHUB_TOKEN starting with: github_p...
+[00:32:14.054] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:32:14.054] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:32:14.054] Browser LOG     %c[Vercel Web Analytics]%c [view] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1773004530965} /_vercel/insights/view
+[00:32:14.234] Browser WARN    Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly.
+[00:34:10.802] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:34:10.961] Server  LOG     Using GITHUB_TOKEN starting with: github_p...
+[00:34:11.015] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:34:11.015] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:34:11.015] Browser LOG     %c[Vercel Web Analytics]%c [view] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1773004647919} /_vercel/insights/view
+[00:34:11.157] Browser WARN    Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly.
+[00:35:34.766] Server  LOG       Reload env: .env
+[00:35:47.750] Server  LOG       Reload env: .env
+[00:36:50.602] Server  LOG     ✓ Compiled in 24ms
+[00:36:56.325] Server  LOG     ✓ Compiled in 26ms
+[00:37:03.129] Server  LOG     ✓ Compiled in 24ms
+[00:38:34.613] Server  LOG     ✓ Compiled in 80ms
+[00:38:47.518] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:38:47.765] Server  LOG     Using GITHUB_TOKEN starting with: github_p...
+[00:38:47.769] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:38:47.769] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:38:47.769] Browser LOG     %c[Vercel Web Analytics]%c [view] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1773004924635} /_vercel/insights/view
+[00:38:47.853] Browser WARN    Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly.
+[00:39:18.277] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:39:18.277] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:39:18.277] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/adminmode","route":"/adminmode"}
+[00:39:18.277] Browser LOG     %c[Vercel Web Analytics]%c [view] http://localhost:3000/adminmode color: rgb(120, 120, 120) color: inherit {"dp":"/adminmode","o":"http://localhost:3000/adminmode","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1773004953331} /_vercel/insights/view
+[00:40:01.676] Browser ERROR   Received NaN for the `%s` attribute. If this is expected, cast the value to a string. value
+[00:40:32.880] Server  LOG     Using GITHUB_TOKEN starting with: github_p...
+[00:40:32.952] Browser LOG     %c[Vercel Web Analytics]%c [view] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1773005029832} /_vercel/insights/view
+[00:40:33.100] Browser WARN    Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly.
+[00:40:53.914] Browser LOG     %c[Vercel Web Analytics]%c [view] http://localhost:3000/adminmode color: rgb(120, 120, 120) color: inherit {"dp":"/adminmode","o":"http://localhost:3000/adminmode","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1773005050838} /_vercel/insights/view
+[00:40:54.427] Browser LOG     THREE.WebGLRenderer: Context Lost.
+[00:41:00.733] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:41:00.903] Server  LOG     Using GITHUB_TOKEN starting with: github_p...
+[00:41:00.942] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:41:00.942] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:41:00.942] Browser LOG     %c[Vercel Web Analytics]%c [view] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1773005057855} /_vercel/insights/view
+[00:41:01.096] Browser WARN    Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly.

@@ -117,7 +117,7 @@ export function GitHubSection() {
         <ScrollReveal delay={0.4}>
           <div className="text-center mt-12">
             <Button variant="outline" size="lg" asChild className="gap-2 border-primary/30 hover:bg-primary/10">
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+              <a href="https://github.com/ashlesh-t" target="_blank" rel="noopener noreferrer">
                 <ExternalLink className="w-4 h-4" />
                 View All Repositories
               </a>
