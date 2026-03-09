@@ -4,8 +4,9 @@ import useSWR from "swr"
 import { ScrollReveal, StaggerContainer, StaggerItem, Parallax } from "@/components/scroll-animations"
 import { Brain, Code, Database, Cpu, GraduationCap, Award, Terminal, Sparkles, User, ShieldCheck } from "lucide-react"
 import { Spinner } from "@/components/ui/spinner"
-import type { Profile, Project, Research } from "@/lib/models"
+import type { Profile, Project, Research, Experience } from "@/lib/models"
 import { motion } from "framer-motion"
+import { parse, differenceInMonths } from "date-fns"
 
 const iconMap: Record<string, React.ElementType> = {
   Brain, Code, Database, Cpu, GraduationCap, Award, Terminal, Sparkles
@@ -15,8 +16,40 @@ const fetcher = (url: string) => fetch(url).then(res => res.json())
 
 export function AboutSection() {
   const { data: profile, isLoading: isProfileLoading } = useSWR<Profile>("/api/profile", fetcher, { revalidateOnFocus: false })
+  const { data: experience, isLoading: isExpLoading } = useSWR<Experience[]>("/api/experience", fetcher, { revalidateOnFocus: false })
 
-  if (isProfileLoading) {
+  const calculateTotalExperience = (expList: Experience[]) => {
+    let totalMonths = 0
+    const now = new Date()
+    
+    expList.forEach(exp => {
+      try {
+        const start = parse(exp.startDate, 'MMM yyyy', new Date())
+        const end = exp.current ? now : (exp.endDate ? parse(exp.endDate, 'MMM yyyy', new Date()) : now)
+        
+        if (!isNaN(start.getTime()) && !isNaN(end.getTime())) {
+          totalMonths += Math.max(0, differenceInMonths(end, start) + 1)
+        }
+      } catch (e) {
+        // Handle variations like "June 2025" if MMM doesn't match full name
+        try {
+           const start = parse(exp.startDate, 'MMMM yyyy', new Date())
+           const end = exp.current ? now : (exp.endDate ? parse(exp.endDate, 'MMMM yyyy', new Date()) : now)
+           if (!isNaN(start.getTime()) && !isNaN(end.getTime())) {
+             totalMonths += Math.max(0, differenceInMonths(end, start) + 1)
+           }
+        } catch (e2) {}
+      }
+    })
+    
+    const years = Math.floor(totalMonths / 12)
+    if (years >= 1) {
+      return `${years}+ Year${years > 1 ? 's' : ''}`
+    }
+    return `${totalMonths} Month${totalMonths !== 1 ? 's' : ''}`
+  }
+
+  if (isProfileLoading || isExpLoading) {
     return (
       <section id="about" className="py-32 px-6 relative flex justify-center">
         <Spinner className="w-8 h-8 text-primary" />
@@ -24,14 +57,21 @@ export function AboutSection() {
     )
   }
 
+  const dynamicExperience = experience ? calculateTotalExperience(experience) : "0 Months"
+
   const bio = profile?.bio && profile.bio.length > 0 ? profile.bio : [
     "I am an AI/ML Researcher and Engineer dedicated to building next-generation artificial intelligence systems.",
     "My passion lies in bridging the gap between theoretical research and practical, real-world implementations."
   ]
 
-  const highlights = profile?.highlights && profile.highlights.length > 0 ? profile.highlights : [
+  const highlights = profile?.highlights && profile.highlights.length > 0 ? profile.highlights.map(h => {
+    if (h.label.toLowerCase() === 'experience') {
+      return { ...h, value: dynamicExperience }
+    }
+    return h
+  }) : [
     { icon: "GraduationCap", label: "University", value: "Computer Science" },
-    { icon: "Award", label: "Experience", value: "3+ Years" },
+    { icon: "Award", label: "Experience", value: dynamicExperience },
     { icon: "Brain", label: "Models Built", value: `2+` },
     { icon: "Database", label: "Research", value: `2+` },
   ]
