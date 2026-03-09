@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://ashlesh.co.in
+
+# Sitemaps
+Sitemap: https://ashlesh.co.in/sitemap.xml
