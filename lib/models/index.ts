@@ -4,6 +4,14 @@ import mongoose, { Schema, Model } from 'mongoose'
 // Type Definitions
 // ============================================
 
+export interface Education {
+  school: string
+  degree: string
+  field: string
+  startYear: string
+  endYear: string
+}
+
 export interface Profile {
   _id?: string
   name: string
@@ -18,6 +26,7 @@ export interface Profile {
   resumeBase64?: string // Storing CV pdf as base64 string
   skills: { name: string; category?: string; level?: number }[]
   highlights: { label: string; value: string; icon: string }[]
+  education?: Education[]
   aboutTags?: string[]
   impactMetrics?: {
     id: string
@@ -149,6 +158,7 @@ const ProfileSchema = new Schema<Profile>({
   resumeBase64: String,
   skills: [{ name: String, category: String, level: Number }],
   highlights: [{ label: String, value: String, icon: String }],
+  education: [{ school: String, degree: String, field: String, startYear: String, endYear: String }],
   aboutTags: [String],
   impactMetrics: [{
     id: String,

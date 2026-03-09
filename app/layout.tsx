@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: 'Ashlesh | AI/ML Researcher & Engineer',
   description: 'AI Research Scientist specializing in deep learning, computer vision, and neural architectures. Building the future of artificial intelligence.',
   icons: {
-    icon: '/icon.svg',
+    icon: 'public/bg.png',
   }
 }
 

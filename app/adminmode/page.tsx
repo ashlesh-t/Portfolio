@@ -204,7 +204,7 @@ function StatCard({ title, count }: { title: string; count: number }) {
 function ProfileManager() {
   const [loading, setLoading] = useState(false)
   const { toast } = useToast()
-  const [form, setForm] = useState({ name: "", title: "", email: "", phone: "", location: "", github: "", linkedin: "", bio: "", designations: [] as string[], aboutTags: [] as string[] })
+  const [form, setForm] = useState({ name: "", title: "", email: "", phone: "", location: "", github: "", linkedin: "", bio: "", designations: [] as string[], aboutTags: [] as string[], education: [] as any[] })
 
   useEffect(() => {
     fetch("/api/profile").then(r => r.json()).then(data => {
@@ -219,7 +219,8 @@ function ProfileManager() {
           linkedin: data.linkedin || "",
           bio: data.bio ? data.bio.join("\n\n") : "",
           designations: data.designations || [],
-          aboutTags: data.aboutTags || []
+          aboutTags: data.aboutTags || [],
+          education: data.education || []
         })
       }
     })
@@ -242,6 +243,10 @@ function ProfileManager() {
       toast({ title: "ERROR", description: "Network failure.", variant: "destructive" })
     } finally { setLoading(false) }
   }
+
+  const addEdu = () => setForm({...form, education: [...form.education, { school: "", degree: "", field: "", startYear: "", endYear: "" }]})
+  const removeEdu = (idx: number) => setForm({...form, education: form.education.filter((_, i) => i !== idx)})
+  const updateEdu = (idx: number, field: string, val: string) => setForm({...form, education: form.education.map((e, i) => i === idx ? { ...e, [field]: val } : e)})
 
   return (
     <div className="space-y-8 animate-in fade-in">
@@ -271,6 +276,28 @@ function ProfileManager() {
               <Label className="text-xs">CAPABILITY_TAGS (WHOAMI Bottom)</Label>
               <TagInput tags={form.aboutTags} setTags={t => setForm({...form, aboutTags: t})} />
             </div>
+
+            <div className="space-y-4 pt-4 border-t border-primary/10">
+              <div className="flex justify-between items-center">
+                 <Label className="text-xs uppercase text-primary">Education_Experience</Label>
+                 <Button type="button" onClick={addEdu} variant="outline" size="sm" className="h-6 text-[10px] border-primary/20">ADD_EDU</Button>
+              </div>
+              {form.education.map((edu, idx) => (
+                <div key={idx} className="p-3 rounded-lg border border-primary/10 bg-primary/5 space-y-3 relative">
+                   <Button type="button" variant="ghost" size="icon" className="absolute top-1 right-1 h-6 w-6 text-destructive" onClick={() => removeEdu(idx)}><Trash2 className="h-3 w-3" /></Button>
+                   <Input placeholder="University/School" value={edu.school} onChange={e => updateEdu(idx, "school", e.target.value)} className="h-7 text-[10px] bg-background/50" />
+                   <div className="grid grid-cols-2 gap-2">
+                      <Input placeholder="Degree" value={edu.degree} onChange={e => updateEdu(idx, "degree", e.target.value)} className="h-7 text-[10px] bg-background/50" />
+                      <Input placeholder="Field of Study" value={edu.field} onChange={e => updateEdu(idx, "field", e.target.value)} className="h-7 text-[10px] bg-background/50" />
+                   </div>
+                   <div className="grid grid-cols-2 gap-2">
+                      <Input placeholder="Start Year" value={edu.startYear} onChange={e => updateEdu(idx, "startYear", e.target.value)} className="h-7 text-[10px] bg-background/50" />
+                      <Input placeholder="End Year" value={edu.endYear} onChange={e => updateEdu(idx, "endYear", e.target.value)} className="h-7 text-[10px] bg-background/50" />
+                   </div>
+                </div>
+              ))}
+            </div>
+
             <div className="grid grid-cols-2 gap-4">
               <Input placeholder="EMAIL" value={form.email} onChange={e=>setForm({...form, email: e.target.value})} className="bg-background/50 border-primary/10 text-xs" />
               <Input placeholder="GITHUB" value={form.github} onChange={e=>setForm({...form, github: e.target.value})} className="bg-background/50 border-primary/10 text-xs" />

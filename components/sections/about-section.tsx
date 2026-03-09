@@ -91,6 +91,27 @@ export function AboutSection() {
                        </div>
                      ))}
                   </div>
+
+                  {profile?.education && profile.education.length > 0 && (
+                    <div className="pt-8 space-y-4 border-t border-primary/10">
+                       <h4 className="text-sm font-mono text-primary uppercase tracking-widest flex items-center gap-2">
+                          <GraduationCap className="w-4 h-4" />
+                          Education_Experience
+                       </h4>
+                       <div className="grid gap-4">
+                          {profile.education.map((edu, idx) => (
+                            <div key={idx} className="relative pl-6 border-l border-primary/20">
+                               <div className="absolute -left-[5px] top-2 w-2 h-2 rounded-full bg-primary/40" />
+                               <div className="flex flex-col md:flex-row md:items-center justify-between gap-1">
+                                  <div className="font-bold text-foreground">{edu.school}</div>
+                                  <div className="text-xs font-mono text-muted-foreground">{edu.startYear} — {edu.endYear}</div>
+                               </div>
+                               <div className="text-sm text-primary/80">{edu.degree} in {edu.field}</div>
+                            </div>
+                          ))}
+                       </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </ScrollReveal>

@@ -26,6 +26,15 @@ const myProfile = {
     { icon: "Award", label: "Published Paper", value: "VISAPP '26" },
     { icon: "Code", label: "LeetCode", value: "600+" },
     { icon: "Briefcase", label: "Internships", value: "2+" }
+  ],
+  education: [
+    {
+      school: "PES University",
+      degree: "Bachelor of Technology",
+      field: "Computer Science and Engineering",
+      startYear: "2022",
+      endYear: "2026"
+    }
   ]
 }
 
