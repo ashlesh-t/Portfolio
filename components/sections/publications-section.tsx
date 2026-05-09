@@ -15,7 +15,7 @@ interface Publication {
   abstract: string
   citations: number
   doi?: string
-  links: {
+  links?: {
     paper?: string
     code?: string
     slides?: string
@@ -132,7 +132,7 @@ function PublicationCard({ publication }: { publication: Publication }) {
             </div>
             
             <div className="flex items-center gap-2">
-              {publication.links.paper && (
+              {publication.links?.paper && (
                 <Button
                   variant="outline"
                   size="sm"
@@ -145,7 +145,7 @@ function PublicationCard({ publication }: { publication: Publication }) {
                   </a>
                 </Button>
               )}
-              {publication.links.code && (
+              {publication.links?.code && (
                 <Button
                   variant="outline"
                   size="sm"
