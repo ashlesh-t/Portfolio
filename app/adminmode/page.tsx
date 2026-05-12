@@ -19,6 +19,7 @@ export default function AdminDashboard() {
 
   const [activeTab, setActiveTab] = useState("overview")
 
+
   const fetchStats = async () => {
     try {
       const [projRes, pubRes, resRes, expRes, achRes, certRes] = await Promise.all([
@@ -126,7 +127,7 @@ export default function AdminDashboard() {
       </div>
 
       <div className="flex flex-wrap gap-2 mb-8 border-b border-primary/20 pb-4">
-        {["overview", "profile", "impact", "performance", "activity", "highlights", "projects", "research", "publications", "experience", "achievements", "certifications"].map(tab => (
+        {["overview", "profile", "impact", "performance", "activity", "highlights", "projects", "research", "publications", "experience", "achievements", "certifications", "blog"].map(tab => (
           <Button 
             key={tab} 
             variant={activeTab === tab ? "default" : "ghost"}
@@ -185,6 +186,7 @@ export default function AdminDashboard() {
       {activeTab === "publications" && <PublicationManager onUpdate={fetchStats} />}
       {activeTab === "achievements" && <AchievementManager onUpdate={fetchStats} />}
       {activeTab === "certifications" && <CertificationManager onUpdate={fetchStats} />}
+      {activeTab === "blog" && <BlogManager />}
 
     </div>
   )
@@ -1054,6 +1056,242 @@ function AchievementManager({ onUpdate }: { onUpdate: () => void }) {
             <div className="flex gap-2">
               <Button variant="ghost" size="icon" onClick={() => handleEdit(i)} className="h-7 w-7"><Edit className="w-3 h-3" /></Button>
               <Button variant="ghost" size="icon" onClick={() => handleDelete(i._id)} className="h-7 w-7 text-destructive"><Trash2 className="w-3 h-3" /></Button>
+            </div>
+          </Card>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function BlogManager() {
+  const [items, setItems] = useState<any[]>([])
+  const [editingId, setEditingId] = useState<string | null>(null)
+  const [loading, setLoading] = useState(false)
+  const [uploadingImages, setUploadingImages] = useState(false)
+  const { toast } = useToast()
+
+  const emptyForm = { title: "", summary: "", description: "", linksRaw: "", images: [] as string[], tags: [] as string[] }
+  const [form, setForm] = useState(emptyForm)
+
+  useEffect(() => { loadItems() }, [])
+
+  const loadItems = async () => {
+    const res = await fetch("/api/blogs")
+    const data = await res.json()
+    setItems(Array.isArray(data) ? data : [])
+  }
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || [])
+    if (!files.length) return
+    setUploadingImages(true)
+    let loaded = 0
+    const results: string[] = []
+    files.forEach((file, i) => {
+      const reader = new FileReader()
+      reader.onload = (ev) => {
+        results[i] = ev.target?.result as string
+        loaded++
+        if (loaded === files.length) {
+          setForm(f => ({ ...f, images: [...f.images, ...results] }))
+          setUploadingImages(false)
+        }
+      }
+      reader.readAsDataURL(file)
+    })
+    e.target.value = ""
+  }
+
+  const removeImage = (idx: number) => {
+    setForm(f => ({ ...f, images: f.images.filter((_, i) => i !== idx) }))
+  }
+
+  const handleSave = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setLoading(true)
+    try {
+      const links = form.linksRaw.split(",").map(l => l.trim()).filter(Boolean)
+      const payload = { title: form.title, summary: form.summary, description: form.description, links, images: form.images, tags: form.tags }
+      const url = editingId ? `/api/blogs/${editingId}` : "/api/blogs"
+      const method = editingId ? "PUT" : "POST"
+      const res = await fetch(url, { method, headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) })
+      if (res.ok) {
+        toast({ title: "SUCCESS", description: editingId ? "Blog updated." : "Blog published." })
+        setForm(emptyForm)
+        setEditingId(null)
+        loadItems()
+      } else {
+        toast({ title: "ERROR", description: "Failed to save blog.", variant: "destructive" })
+      }
+    } catch (err) {
+      toast({ title: "ERROR", variant: "destructive" })
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleEdit = (item: any) => {
+    setEditingId(item._id)
+    setForm({
+      title: item.title || "",
+      summary: item.summary || "",
+      description: item.description || "",
+      linksRaw: (item.links || []).join(", "),
+      images: item.images || [],
+      tags: item.tags || []
+    })
+    window.scrollTo({ top: 0, behavior: "smooth" })
+  }
+
+  const handleDelete = async (id: string) => {
+    if (!confirm("Delete this blog post?")) return
+    await fetch(`/api/blogs/${id}`, { method: "DELETE" })
+    toast({ title: "DELETED", description: "Blog post removed." })
+    loadItems()
+  }
+
+  return (
+    <div className="space-y-8 animate-in fade-in">
+      <Card className="border-primary/20 bg-card/10">
+        <CardHeader>
+          <CardTitle className="flex justify-between items-center text-primary uppercase text-sm">
+            {editingId ? "Edit_Blog" : "New_Blog"}
+            {editingId && (
+              <Button variant="ghost" size="sm" className="text-[10px] h-6" onClick={() => { setEditingId(null); setForm(emptyForm) }}>
+                CANCEL
+              </Button>
+            )}
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSave} className="space-y-4">
+            <div className="space-y-1">
+              <Label className="text-[10px]">BLOG_TITLE</Label>
+              <Input
+                placeholder="What did you build / learn / explore?"
+                value={form.title}
+                onChange={e => setForm({ ...form, title: e.target.value })}
+                required
+                className="bg-background/50 border-primary/10 text-xs h-8"
+              />
+            </div>
+
+            <div className="space-y-1">
+              <Label className="text-[10px]">SUMMARY (shown on card)</Label>
+              <Textarea
+                placeholder="Short summary visible on the blog card..."
+                value={form.summary}
+                onChange={e => setForm({ ...form, summary: e.target.value })}
+                required
+                rows={2}
+                className="bg-background/50 border-primary/10 text-xs resize-none"
+              />
+            </div>
+
+            <div className="space-y-1">
+              <Label className="text-[10px]">DESCRIPTION (full content — use {"{1}"}, {"{2}"} for links)</Label>
+              <Textarea
+                placeholder={"Write the full blog post here...\n\nUse {1} or {2} etc. to embed link references from the LINKS field below. Example: 'This research {1} inspired me to build...'"}
+                value={form.description}
+                onChange={e => setForm({ ...form, description: e.target.value })}
+                required
+                rows={10}
+                className="bg-background/50 border-primary/10 text-xs font-mono"
+              />
+            </div>
+
+            <div className="space-y-1">
+              <Label className="text-[10px]">LINKS (comma-separated — maps to {"{1}"}, {"{2}"}, ...)</Label>
+              <Input
+                placeholder="https://link1.com, https://link2.com, https://link3.com"
+                value={form.linksRaw}
+                onChange={e => setForm({ ...form, linksRaw: e.target.value })}
+                className="bg-background/50 border-primary/10 text-xs h-8"
+              />
+              {form.linksRaw && (
+                <div className="flex flex-wrap gap-2 pt-1">
+                  {form.linksRaw.split(",").filter(l => l.trim()).map((l, i) => (
+                    <span key={i} className="text-[9px] bg-primary/10 border border-primary/20 text-primary px-2 py-0.5 rounded font-mono">{"{" + (i + 1) + "} → " + l.trim().slice(0, 40)}{l.trim().length > 40 ? "…" : ""}</span>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <div className="space-y-1">
+              <Label className="text-[10px]">TAGS (optional)</Label>
+              <TagInput tags={form.tags} setTags={t => setForm({ ...form, tags: t })} />
+            </div>
+
+            <div className="space-y-2">
+              <Label className="text-[10px]">UPLOAD_IMAGES</Label>
+              <div className="flex items-center gap-3">
+                <label className="cursor-pointer">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    className="hidden"
+                    onChange={handleImageUpload}
+                    disabled={uploadingImages}
+                  />
+                  <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md border border-primary/30 bg-primary/5 text-primary text-[10px] font-mono hover:bg-primary/10 transition-colors">
+                    <Plus className="w-3 h-3" />
+                    {uploadingImages ? "LOADING..." : "ADD_IMAGES"}
+                  </span>
+                </label>
+                {form.images.length > 0 && (
+                  <span className="text-[10px] text-muted-foreground">{form.images.length} image{form.images.length > 1 ? "s" : ""} selected</span>
+                )}
+              </div>
+
+              {form.images.length > 0 && (
+                <div className="grid grid-cols-3 md:grid-cols-5 gap-2 mt-2">
+                  {form.images.map((src, i) => (
+                    <div key={i} className="relative group aspect-square rounded-lg overflow-hidden border border-primary/20">
+                      <img src={src} alt="" className="w-full h-full object-cover" />
+                      <button
+                        type="button"
+                        onClick={() => removeImage(i)}
+                        className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                      <span className="absolute top-1 left-1 text-[8px] bg-black/60 text-white px-1 rounded font-mono">
+                        {i + 1}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <Button type="submit" disabled={loading} className="w-full text-xs h-9">
+              {loading ? <Spinner className="mr-2 h-3 w-3" /> : <Save className="mr-2 h-3 w-3" />}
+              {editingId ? "UPDATE_POST" : "PUBLISH_POST"}
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
+
+      <div className="grid gap-4">
+        {items.map(item => (
+          <Card key={item._id} className={`flex justify-between items-start p-4 border-primary/10 bg-card/5 ${editingId === item._id ? "border-primary ring-1 ring-primary" : ""}`}>
+            <div className="flex gap-3 items-start">
+              {item.images?.[0] && (
+                <img src={item.images[0]} alt="" className="w-12 h-12 object-cover rounded-md border border-primary/20 shrink-0" />
+              )}
+              <div>
+                <h3 className="font-bold text-xs uppercase tracking-tight">{item.title}</h3>
+                <p className="text-[10px] text-muted-foreground mt-0.5 line-clamp-1">{item.summary}</p>
+                <p className="text-[9px] text-muted-foreground/60 mt-1 font-mono">
+                  {item.images?.length || 0} img · {item.links?.length || 0} links · {new Date(item.createdAt).toLocaleDateString()}
+                </p>
+              </div>
+            </div>
+            <div className="flex gap-2 shrink-0">
+              <Button variant="ghost" size="icon" onClick={() => handleEdit(item)} className="h-7 w-7"><Edit className="w-3 h-3" /></Button>
+              <Button variant="ghost" size="icon" onClick={() => handleDelete(item._id)} className="h-7 w-7 text-destructive"><Trash2 className="w-3 h-3" /></Button>
             </div>
           </Card>
         ))}
