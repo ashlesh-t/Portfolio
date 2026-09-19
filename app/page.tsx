@@ -10,6 +10,7 @@ import { AchievementsSection } from "@/components/sections/achievements-section"
 import { CertificationsSection } from "@/components/sections/certifications-section"
 import { MetricsSection } from "@/components/sections/metrics-section"
 import { GitHubSection } from "@/components/sections/github-section"
+import { BlogSection } from "@/components/sections/blog-section"
 import { ContactSection } from "@/components/sections/contact-section"
 import { Footer } from "@/components/footer"
 
@@ -34,6 +35,7 @@ export default function HomePage() {
         <AchievementsSection />
         <CertificationsSection />
         <GitHubSection />
+        <BlogSection />
         <ContactSection />
       </div>
       

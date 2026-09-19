@@ -8,13 +8,12 @@ import { Button } from "@/components/ui/button"
 import { ArrowDown, Github, Linkedin, Mail, Terminal } from "lucide-react"
 
 const defaultDesignations = [
-  "Developer",
-  "Backend",
+  "Backend Engineer",
   "Distributed Systems",
-  "AI Systems",
-  "RAG and Agentic AI",
-  "Deep Learning",
-  "AI Researcher"
+  "Agentic AI",
+  "Java & Go",
+  "MCP & RAG",
+  "Event-Driven Systems"
 ]
 
 const fetcher = (url: string) => fetch(url).then(res => res.json())
@@ -78,10 +77,10 @@ export function HeroSection() {
             transition={{ delay: 1.5, duration: 0.8 }}
             className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto mb-8 leading-relaxed font-mono"
           >
-            Building the future of artificial intelligence through{" "}
-            <span className="text-primary glow-text">deep learning</span>,{" "}
-            <span className="text-accent">distributed systems</span>, and{" "}
-            <span className="text-primary glow-text">scalable backend architectures</span>.
+            Engineering{" "}
+            <span className="text-primary glow-text">distributed backend systems</span> and{" "}
+            <span className="text-accent">agentic AI infrastructure</span> — where production-grade{" "}
+            <span className="text-primary glow-text">Java and Go platforms</span> meet autonomous, tool-using workflows.
           </motion.p>
           
           <motion.div

@@ -266,6 +266,29 @@ const CertificationSchema = new Schema<Certification>({
   order: { type: Number, default: 0 }
 }, { timestamps: true })
 
+export interface BlogPost {
+  _id?: string
+  title: string
+  summary: string
+  description: string
+  links: string[]
+  images: string[]
+  tags?: string[]
+  createdAt?: Date
+  updatedAt?: Date
+}
+
+const BlogPostSchema = new Schema<BlogPost>({
+  title: { type: String, required: true },
+  summary: { type: String, required: true },
+  description: { type: String, required: true },
+  links: [String],
+  images: [String],
+  tags: [String]
+}, { timestamps: true })
+
+export const BlogPostModel: Model<BlogPost> = mongoose.models.BlogPost || mongoose.model<BlogPost>('BlogPost', BlogPostSchema)
+
 export const ProfileModel: Model<Profile> = mongoose.models.Profile || mongoose.model<Profile>('Profile', ProfileSchema)
 export const ExperienceModel: Model<Experience> = mongoose.models.Experience || mongoose.model<Experience>('Experience', ExperienceSchema)
 export const ProjectModel: Model<Project> = mongoose.models.Project || mongoose.model<Project>('Project', ProjectSchema)
