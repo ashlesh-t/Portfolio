@@ -2,10 +2,11 @@ import { NextResponse } from "next/server"
 import connectToDatabase from "@/lib/mongodb"
 import { BlogPostModel } from "@/lib/models/index"
 
-export async function GET(_req: Request, { params }: { params: { id: string } }) {
+export async function GET(_req: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     await connectToDatabase()
-    const blog = await BlogPostModel.findById(params.id).lean()
+    const { id } = await params
+    const blog = await BlogPostModel.findById(id).lean()
     if (!blog) return NextResponse.json({ error: "Not found" }, { status: 404 })
     return NextResponse.json(blog)
   } catch (error) {
@@ -13,11 +14,12 @@ export async function GET(_req: Request, { params }: { params: { id: string } })
   }
 }
 
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
+export async function PUT(req: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     await connectToDatabase()
+    const { id } = await params
     const body = await req.json()
-    const blog = await BlogPostModel.findByIdAndUpdate(params.id, body, { new: true })
+    const blog = await BlogPostModel.findByIdAndUpdate(id, body, { new: true })
     if (!blog) return NextResponse.json({ error: "Not found" }, { status: 404 })
     return NextResponse.json(blog)
   } catch (error) {
@@ -25,10 +27,11 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
   }
 }
 
-export async function DELETE(_req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(_req: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     await connectToDatabase()
-    await BlogPostModel.findByIdAndDelete(params.id)
+    const { id } = await params
+    await BlogPostModel.findByIdAndDelete(id)
     return NextResponse.json({ success: true })
   } catch (error) {
     return NextResponse.json({ error: "Failed to delete blog" }, { status: 500 })
