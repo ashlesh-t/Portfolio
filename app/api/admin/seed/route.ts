@@ -41,16 +41,34 @@ const myProfile = {
 const myExperience = [
   {
     company: "Boomi Software",
-    role: "Software Development Intern",
+    role: "Software Engineer I (SDE-1)",
     startDate: "Jan 2026",
     endDate: "",
     current: true,
     description: [
+      "Built an agentic MCP-based test-coverage platform (FastAPI/WebSocket backend, React dashboard) that lifted JaCoCo coverage past 80% across enterprise connectors.",
+      "Resolved production-blocking connector defects across MySQL, SQL Server, Oracle and PostgreSQL.",
+      "Hardened MQTT and OAuth 2.0 connector flows for production customers.",
+      "Built internal MCP-based tools, skills, and plugins to automate recurring engineering workflows, reducing manual turnaround time.",
+      "Extended feature implementations across multiple enterprise connectors beyond the initial scope."
+    ],
+    technologies: ["Java", "Python", "MCP", "FastAPI", "React", "Boomi Atomsphere", "Spring Framework"],
+    order: 1
+  },
+  {
+    company: "Boomi Software",
+    role: "Software Development Intern",
+    startDate: "Jan 2026",
+    endDate: "",
+    current: false,
+    description: [
       "Identified and resolved critical production defect in concurrent architecture caused by non-daemon thread lifecycle management, preventing potential memory leaks in customer-facing systems.",
-      "Engineered automated Python-based pipeline for regression test branch discovery and health monitoring across Boomi Atomsphere environment, enabling faster CI/CD validation cycles."
+      "Engineered automated Python-based pipeline for regression test branch discovery and health monitoring across Boomi Atomsphere environment, enabling faster CI/CD validation cycles.",
+      "Implemented OAuth 2.0 authentication support for an enterprise connector integration.",
+      "Resolved a Jackson serialization conflict between shared and connector-specific dependencies by introducing a self-contained ObjectMapper instance, isolating (de)serialization behavior."
     ],
     technologies: ["Java", "Python", "Concurrency", "Boomi Atomsphere", "Spring Framework"],
-    order: 1
+    order: 2
   },
   {
     company: "GOwarm.ai",
@@ -65,11 +83,41 @@ const myExperience = [
       "Implemented frontend automation tools including a React.js Chrome extension and optimized bulk-select operations using JavaScript Sets, reducing lookup complexity from O(n) to O(1) for 1000+ records."
     ],
     technologies: ["Java (Spring Boot)", "Python", "FastAPI", "React.js", "MongoDB", "Docker", "Microservices"],
-    order: 2
+    order: 3
   }
 ]
 
 const myProjects = [
+  {
+    title: "coginirepo",
+    shortDescription: "MCP server for semantic repository memory and hybrid retrieval",
+    fullDescription: "An MCP server providing semantic repository memory and hybrid retrieval, cutting LLM token usage by 70-80% for repository-aware coding agents. Published on PyPI and LobeHub.",
+    category: "Developer Tools",
+    technologies: ["Python", "MCP", "RAG", "PyPI"],
+    status: "Completed",
+    featured: false,
+    order: 1
+  },
+  {
+    title: "Distributed Log & Node Monitoring System",
+    shortDescription: "Scalable real-time log ingestion and node health monitoring",
+    fullDescription: "A scalable system for real-time log ingestion and node health monitoring using Kafka and Fluentd. Implemented heartbeat-based failure detection with RabbitMQ and used NoSQL storage for anomaly tracking and diagnostic reporting. Evolving into a production-grade PaaS solution with NGINX and Kubernetes.",
+    category: "Distributed Systems",
+    technologies: ["Python", "Go", "Kafka", "Fluentd", "RabbitMQ", "Elasticsearch", "Docker", "React"],
+    status: "Completed",
+    featured: false,
+    order: 2
+  },
+  {
+    title: "skillbridge-ai",
+    shortDescription: "AI-powered skill and career development platform",
+    fullDescription: "An AI-powered platform to help users identify skill gaps and build a personalized development path toward their target roles.",
+    category: "Full Stack ML",
+    technologies: ["Python", "Next.js", "AI"],
+    status: "Completed",
+    featured: false,
+    order: 3
+  },
   {
     title: "sparkSential – AI-Powered Credit Card Fraud Detection",
     shortDescription: "Production-grade fraud detection using PySpark, Kafka, and Deep Learning",
@@ -78,38 +126,18 @@ const myProjects = [
     technologies: ["PySpark", "Kafka", "XGBoost", "TensorFlow", "Python", "Microservices", "Docker", "Kubernetes"],
     status: "Completed",
     metrics: { accuracy: 98, performance: "Real-time streaming", impact: "High" },
-    featured: true,
-    order: 1
+    featured: false,
+    order: 4
   },
   {
-    title: "Distributed Log & Node Monitoring System",
-    shortDescription: "Scalable real-time log ingestion and node health monitoring",
-    fullDescription: "A scalable system for real-time log ingestion and node health monitoring using Kafka and Fluentd. Implemented heartbeat-based failure detection with RabbitMQ and used NoSQL storage for anomaly tracking and diagnostic reporting. Evolving into a production-grade PaaS solution with NGINX and Kubernetes.",
-    category: "Distributed Systems",
-    technologies: ["Python", "Kafka", "Fluentd", "RabbitMQ", "Elasticsearch", "Docker", "React"],
-    status: "Completed",
-    featured: true,
-    order: 2
-  },
-  {
-    title: "MyPay – UPI-Inspired Payment System",
+    title: "MyPay",
     shortDescription: "Microservice-based UPI payment simulation",
     fullDescription: "Developed a microservice-based UPI payment simulation replicating real NPCI transaction flows. Implemented Spring Security with JWT and OAuth for secure API communication, and containerized services with Docker for deployment scalability.",
     category: "Backend",
     technologies: ["Java", "Spring Boot", "MongoDB", "Docker", "MVC"],
     status: "Completed",
     featured: false,
-    order: 3
-  },
-  {
-    title: "EcoAssist – Carbon Footprint Tracker",
-    shortDescription: "ML-powered app estimating carbon footprints",
-    fullDescription: "Engineered an ML-powered app to estimate individual carbon footprints based on lifestyle inputs. Integrated a LLaMA chatbot to provide personalized eco-friendly recommendations, and applied XGBoost for predictive analysis.",
-    category: "Full Stack ML",
-    technologies: ["Python", "XGBoost", "Next.js", "LLaMA", "PostgreSQL", "SQLite"],
-    status: "Completed",
-    featured: false,
-    order: 4
+    order: 5
   }
 ]
 
