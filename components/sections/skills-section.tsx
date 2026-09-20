@@ -267,7 +267,7 @@ function TesseractCore({
       const w2 = z * sinZW + w * cosZW
       z = z2
       w = w2
-      const factor = (1 / (2.2 - w)) * 1.6
+      const factor = (1 / (2.2 - w)) * 0.85
       return [x * factor, y * factor, z * factor]
     })
 
@@ -494,6 +494,62 @@ function ElectronOrbit({ node, x, y }: { node: SkillNode; x: number; y: number }
   )
 }
 
+// Sci-fi hologram materialization of the selected skill's logo, projected at
+// the reactor core each time the active skill changes.
+function HologramReveal({ node }: { node: SkillNode }) {
+  const Icon = node.icon
+  return (
+    <motion.div
+      key={node.id}
+      className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[4] pointer-events-none flex items-center justify-center"
+      style={{ width: 72, height: 72 }}
+      initial={{ opacity: 0, scale: 0.6, filter: "blur(6px)" }}
+      animate={{
+        opacity: [0, 1, 0.82, 1, 0.9],
+        scale: [0.6, 1.08, 0.97, 1.02, 1],
+        filter: ["blur(6px)", "blur(0px)", "blur(1px)", "blur(0px)", "blur(0px)"],
+      }}
+      exit={{ opacity: 0, scale: 0.7, filter: "blur(8px)" }}
+      transition={{ duration: 0.6, times: [0, 0.35, 0.55, 0.75, 1], ease: "easeOut" }}
+    >
+      <div className="absolute inset-0 rounded-full blur-xl" style={{ backgroundColor: node.accent, opacity: 0.3 }} />
+
+      <motion.div
+        className="absolute inset-x-0 h-1/3"
+        style={{ background: `linear-gradient(to bottom, transparent, ${node.accent}aa, transparent)`, mixBlendMode: "screen" }}
+        initial={{ top: "-40%" }}
+        animate={{ top: "110%" }}
+        transition={{ duration: 0.55, ease: "easeIn" }}
+      />
+
+      {node.logoSrc ? (
+        <span
+          className="relative w-10 h-10"
+          style={{
+            backgroundColor: node.accent,
+            WebkitMaskImage: `url(${node.logoSrc})`,
+            maskImage: `url(${node.logoSrc})`,
+            WebkitMaskRepeat: "no-repeat",
+            maskRepeat: "no-repeat",
+            WebkitMaskSize: "contain",
+            maskSize: "contain",
+            WebkitMaskPosition: "center",
+            maskPosition: "center",
+            filter: `drop-shadow(0 0 8px ${node.accent})`,
+          }}
+        />
+      ) : (
+        <Icon className="relative w-10 h-10" style={{ color: node.accent, filter: `drop-shadow(0 0 8px ${node.accent})` }} />
+      )}
+
+      <span className="absolute -top-2 -left-2 w-3 h-3 border-t-2 border-l-2" style={{ borderColor: node.accent }} />
+      <span className="absolute -top-2 -right-2 w-3 h-3 border-t-2 border-r-2" style={{ borderColor: node.accent }} />
+      <span className="absolute -bottom-2 -left-2 w-3 h-3 border-b-2 border-l-2" style={{ borderColor: node.accent }} />
+      <span className="absolute -bottom-2 -right-2 w-3 h-3 border-b-2 border-r-2" style={{ borderColor: node.accent }} />
+    </motion.div>
+  )
+}
+
 // Numeric 0-100 layout (matches the SVG viewBox) so node badges, connection
 // arcs, and the firing particle all share one coordinate space.
 function useRadialLayout(count: number) {
@@ -702,13 +758,18 @@ export function SkillsSection() {
             {/* Invisible drag/click overlay on the core: drag to spin the tesseract, click to ignite */}
             <div
               className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full z-[6] cursor-grab active:cursor-grabbing"
-              style={{ width: "38%", height: "38%", touchAction: "none" }}
+              style={{ width: "22%", height: "22%", touchAction: "none" }}
               onPointerDown={handleCorePointerDown}
               onPointerMove={handleCorePointerMove}
               onPointerUp={handleCorePointerUp}
               aria-label="Drag to rotate the reactor core, click to ignite"
               role="button"
             />
+
+            {/* Sci-fi hologram of the selected skill's logo, materializing at the core */}
+            <AnimatePresence mode="wait">
+              <HologramReveal node={selected} />
+            </AnimatePresence>
 
             {/* Persistent curved orbital connections from each node to the core */}
             <svg
@@ -727,8 +788,8 @@ export function SkillsSection() {
                     d={d}
                     fill="none"
                     stroke={node.accent}
-                    strokeWidth={isActive ? 0.45 : 0.22}
-                    opacity={isActive ? 0.55 : 0.12}
+                    strokeWidth={isActive ? 0.35 : 0.1}
+                    opacity={isActive ? 0.5 : 0.05}
                     style={{ transition: "opacity 0.4s ease, stroke-width 0.4s ease" }}
                   />
                 )
