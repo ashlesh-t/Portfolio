@@ -153,7 +153,7 @@ const SKILL_NODES: SkillNode[] = [
     icon: Cloud,
     domain: "Cloud Infrastructure",
     usedFor: "Compute and storage for deployed services",
-    ecosystem: ["EC2", "S3", "GCP"],
+    ecosystem: ["EC2", "S3", "IAM"],
     usedIn: ["Cloud-hosted service deployments"],
   },
   {
@@ -181,26 +181,36 @@ const SKILL_NODES: SkillNode[] = [
 ]
 
 const AUTO_CYCLE_MS = 4000
-const REACTION_MS = 2200
+const ELECTRON_ORBIT_RADIUS = 78
+const ELECTRON_ORBIT_MS = 7000
 
-function ReactorCore({ boosted }: { boosted: boolean }) {
+const CORE_BASE_COLOR = "#00f0ff"
+
+function ReactorCore({ boosted, impactColor }: { boosted: boolean; impactColor: string }) {
   const meshRef = useRef<THREE.Mesh>(null)
+  const materialRef = useRef<THREE.MeshBasicMaterial>(null)
   const currentBoost = useRef(1)
+  const targetColor = useRef(new THREE.Color(CORE_BASE_COLOR))
+  const baseColor = useMemo(() => new THREE.Color(CORE_BASE_COLOR), [])
 
   useFrame(({ clock }) => {
-    if (!meshRef.current) return
+    if (!meshRef.current || !materialRef.current) return
     const t = clock.getElapsedTime()
     const pulse = 1 + Math.sin(t * 1.5) * 0.08
     currentBoost.current += ((boosted ? 1.5 : 1) - currentBoost.current) * 0.1
     meshRef.current.scale.setScalar(pulse * currentBoost.current)
     meshRef.current.rotation.y += 0.003
     meshRef.current.rotation.x += 0.001
+
+    // Flash to the impacting skill's colour, then ease back to the base cyan.
+    targetColor.current.set(boosted ? impactColor : CORE_BASE_COLOR)
+    materialRef.current.color.lerp(targetColor.current, boosted ? 0.35 : 0.08)
   })
 
   return (
     <mesh ref={meshRef}>
       <icosahedronGeometry args={[0.85, 1]} />
-      <meshBasicMaterial color="#00f0ff" wireframe transparent opacity={0.55} />
+      <meshBasicMaterial ref={materialRef} color={baseColor} wireframe transparent opacity={0.55} />
     </mesh>
   )
 }
@@ -265,12 +275,12 @@ function AmbientParticles() {
   )
 }
 
-function ReactorScene({ boosted }: { boosted: boolean }) {
+function ReactorScene({ boosted, impactColor }: { boosted: boolean; impactColor: string }) {
   return (
     <Canvas camera={{ position: [0, 0, 5.5], fov: 50 }} gl={{ antialias: true, alpha: true }}>
       <ambientLight intensity={0.6} />
       <ReactorRings />
-      <ReactorCore boosted={boosted} />
+      <ReactorCore boosted={boosted} impactColor={impactColor} />
       <AmbientParticles />
     </Canvas>
   )
@@ -326,6 +336,74 @@ function SkillHud({ node }: { node: SkillNode }) {
   )
 }
 
+// Electron sub-orbit: the selected skill's closest ecosystem items, rendered
+// as small nodes continuously orbiting it — a secondary "atom" axis around
+// whichever primary tech is currently active.
+function ElectronOrbit({ node, x, y }: { node: SkillNode; x: number; y: number }) {
+  const items = node.ecosystem.slice(0, 4)
+  const durationS = ELECTRON_ORBIT_MS / 1000
+
+  return (
+    <motion.div
+      key={node.id}
+      className="absolute -translate-x-1/2 -translate-y-1/2 pointer-events-none z-[7]"
+      style={{ left: `${x}%`, top: `${y}%`, width: 0, height: 0 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.35 }}
+    >
+      <span
+        className="absolute rounded-full border border-dashed"
+        style={{
+          left: -ELECTRON_ORBIT_RADIUS,
+          top: -ELECTRON_ORBIT_RADIUS,
+          width: ELECTRON_ORBIT_RADIUS * 2,
+          height: ELECTRON_ORBIT_RADIUS * 2,
+          borderColor: `${node.accent}33`,
+        }}
+      />
+      <motion.div
+        className="absolute inset-0"
+        animate={{ rotate: 360 }}
+        transition={{ duration: durationS, repeat: Infinity, ease: "linear" }}
+      >
+        {items.map((label, i) => {
+          const angle = (i / items.length) * 360
+          return (
+            <div
+              key={label}
+              className="absolute left-0 top-0"
+              style={{ transform: `rotate(${angle}deg) translateX(${ELECTRON_ORBIT_RADIUS}px)` }}
+            >
+              <motion.div
+                className="flex items-center gap-1.5 -translate-x-1/2 -translate-y-1/2"
+                animate={{ rotate: -360 }}
+                transition={{ duration: durationS, repeat: Infinity, ease: "linear" }}
+              >
+                <span
+                  className="w-1.5 h-1.5 rounded-full shrink-0"
+                  style={{ backgroundColor: node.accent, boxShadow: `0 0 6px 1px ${node.accent}` }}
+                />
+                <span
+                  className="text-[8px] font-mono whitespace-nowrap px-1.5 py-0.5 rounded-full border backdrop-blur-sm"
+                  style={{
+                    borderColor: `${node.accent}40`,
+                    color: node.accent,
+                    backgroundColor: "rgba(6, 10, 20, 0.65)",
+                  }}
+                >
+                  {label}
+                </span>
+              </motion.div>
+            </div>
+          )
+        })}
+      </motion.div>
+    </motion.div>
+  )
+}
+
 // Numeric 0-100 layout (matches the SVG viewBox) so node badges, connection
 // arcs, and the firing particle all share one coordinate space.
 function useRadialLayout(count: number) {
@@ -357,10 +435,8 @@ export function SkillsSection() {
   const [selected, setSelected] = useState<SkillNode>(SKILL_NODES[0])
   const [firingId, setFiringId] = useState<string | null>(null)
   const [boosted, setBoosted] = useState(false)
-  const [reactionActive, setReactionActive] = useState(false)
   const autoIndex = useRef(0)
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
-  const reactionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const positions = useRadialLayout(SKILL_NODES.length)
 
@@ -399,17 +475,6 @@ export function SkillsSection() {
     }
   }, [restartAutoCycle])
 
-  // Reaction effect: briefly surface the selected skill's ecosystem as
-  // small orbiting nodes around it, then let them fade away.
-  useEffect(() => {
-    setReactionActive(true)
-    if (reactionTimerRef.current) clearTimeout(reactionTimerRef.current)
-    reactionTimerRef.current = setTimeout(() => setReactionActive(false), REACTION_MS)
-    return () => {
-      if (reactionTimerRef.current) clearTimeout(reactionTimerRef.current)
-    }
-  }, [selected])
-
   const handleNodeClick = (node: SkillNode, idx: number) => {
     autoIndex.current = idx
     setSelected(node)
@@ -420,22 +485,10 @@ export function SkillsSection() {
   const firingIdx = firingId ? SKILL_NODES.findIndex((n) => n.id === firingId) : -1
   const firingPos = firingIdx >= 0 ? positions[firingIdx] : null
   const firingArc = firingIdx >= 0 ? arcControlPoint(firingPos!.x, firingPos!.y, firingIdx) : null
+  const impactColor = firingIdx >= 0 ? SKILL_NODES[firingIdx].accent : CORE_BASE_COLOR
 
   const selectedIdx = SKILL_NODES.findIndex((n) => n.id === selected.id)
   const selectedPos = positions[selectedIdx]
-
-  const reactionBadges = useMemo(() => {
-    if (!selectedPos) return []
-    const items = selected.ecosystem.slice(0, 4)
-    return items.map((label, i) => {
-      const angle = (i / items.length) * Math.PI * 2 - Math.PI / 2
-      return {
-        label,
-        x: selectedPos.x + Math.cos(angle) * 11,
-        y: selectedPos.y + Math.sin(angle) * 11,
-      }
-    })
-  }, [selected, selectedPos])
 
   return (
     <section id="skills" className="py-32 px-6 relative overflow-hidden">
@@ -458,17 +511,21 @@ export function SkillsSection() {
         {/* Desktop: radial reactor + HUD */}
         <div className="hidden md:grid grid-cols-12 gap-8 items-center">
           <div className="col-span-7 relative aspect-square w-full max-w-[640px] mx-auto">
-            {/* Plasma core bloom */}
+            {/* Plasma core bloom, tinted to the impacting skill's colour */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-[1]">
               <motion.div
-                className="w-24 h-24 rounded-full bg-primary blur-3xl"
-                animate={{ opacity: boosted ? 0.65 : 0.25, scale: boosted ? 1.5 : 1 }}
+                className="w-24 h-24 rounded-full blur-3xl"
+                animate={{
+                  opacity: boosted ? 0.65 : 0.25,
+                  scale: boosted ? 1.5 : 1,
+                  backgroundColor: impactColor,
+                }}
                 transition={{ duration: 0.4 }}
               />
             </div>
 
             <div className="absolute inset-0">
-              <ReactorScene boosted={boosted} />
+              <ReactorScene boosted={boosted} impactColor={impactColor} />
             </div>
 
             {/* Persistent curved orbital connections from each node to the core */}
@@ -494,27 +551,6 @@ export function SkillsSection() {
                   />
                 )
               })}
-
-              {/* Reaction lines: selected node -> its ecosystem mini-nodes */}
-              <AnimatePresence>
-                {reactionActive &&
-                  selectedPos &&
-                  reactionBadges.map((b) => (
-                    <motion.line
-                      key={`${selected.id}-${b.label}`}
-                      x1={selectedPos.x}
-                      y1={selectedPos.y}
-                      x2={b.x}
-                      y2={b.y}
-                      stroke={selected.accent}
-                      strokeWidth={0.25}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 0.5 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                    />
-                  ))}
-              </AnimatePresence>
             </svg>
 
             {/* Firing particle, travels the same arc as the node's connection */}
@@ -541,28 +577,9 @@ export function SkillsSection() {
               )}
             </AnimatePresence>
 
-            {/* Reaction mini-nodes: selected skill's ecosystem, orbiting briefly */}
+            {/* Electron sub-orbit: the selected skill's ecosystem, continuously orbiting it */}
             <AnimatePresence>
-              {reactionActive &&
-                reactionBadges.map((b) => (
-                  <motion.span
-                    key={`${selected.id}-badge-${b.label}`}
-                    className="absolute -translate-x-1/2 -translate-y-1/2 z-[6] px-2 py-0.5 rounded-full border text-[9px] font-mono whitespace-nowrap pointer-events-none"
-                    style={{
-                      left: `${b.x}%`,
-                      top: `${b.y}%`,
-                      borderColor: `${selected.accent}55`,
-                      color: selected.accent,
-                      backgroundColor: "rgba(6, 10, 20, 0.7)",
-                    }}
-                    initial={{ opacity: 0, scale: 0.6 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.6 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    {b.label}
-                  </motion.span>
-                ))}
+              {selectedPos && <ElectronOrbit node={selected} x={selectedPos.x} y={selectedPos.y} />}
             </AnimatePresence>
 
             {SKILL_NODES.map((node, i) => {
@@ -616,7 +633,7 @@ export function SkillsSection() {
         {/* Mobile fallback: chip row + HUD, smaller reactor */}
         <div className="md:hidden">
           <div className="relative h-52 mb-8 opacity-70">
-            <ReactorScene boosted={boosted} />
+            <ReactorScene boosted={boosted} impactColor={impactColor} />
           </div>
           <div className="flex flex-wrap gap-2 justify-center mb-8">
             {SKILL_NODES.map((node, i) => {
