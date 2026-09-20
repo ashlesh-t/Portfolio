@@ -7,9 +7,9 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Ashlesh | SDE Intern & Fullstack Developer (Go, React, Spark)',
-  description: 'Portfolio of Ashlesh, a Software Development Engineer Intern and Fullstack Developer specializing in Go, React, and Apache Spark. Expert in building scalable backend architectures and distributed systems.',
-  keywords: ['Ashlesh', 'SDE Intern', 'Fullstack Developer', 'Go Developer', 'React Developer', 'Apache Spark', 'Distributed Systems', 'Backend Engineer', 'AI Researcher', 'Software Engineer'],
+  title: 'Ashlesh | Software Engineer I | Backend, Distributed Systems & AI',
+  description: 'Portfolio of Ashlesh, a Software Engineer I specializing in backend engineering, distributed systems, and AI systems (LLMs & RAG). Building scalable, production-grade systems with Go, React, and Apache Spark.',
+  keywords: ['Ashlesh', 'Software Engineer', 'Fullstack Developer', 'Go Developer', 'React Developer', 'Apache Spark', 'Distributed Systems', 'Backend Engineer', 'AI Researcher', 'LLM', 'RAG'],
   authors: [{ name: 'Ashlesh' }],
   creator: 'Ashlesh',
   metadataBase: new URL('https://ashlesh.co.in'),
@@ -17,8 +17,8 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: 'Ashlesh | SDE Intern & Fullstack Developer (Go, React, Spark)',
-    description: 'Portfolio of Ashlesh, a Software Development Engineer Intern and Fullstack Developer specializing in Go, React, and Apache Spark.',
+    title: 'Ashlesh | Software Engineer I | Backend, Distributed Systems & AI',
+    description: 'Portfolio of Ashlesh, a Software Engineer I specializing in backend engineering, distributed systems, and AI systems (LLMs & RAG).',
     url: 'https://ashlesh.co.in',
     siteName: 'Ashlesh Portfolio',
     locale: 'en_US',
@@ -26,8 +26,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Ashlesh | SDE Intern & Fullstack Developer (Go, React, Spark)',
-    description: 'Software Development Engineer Intern and Fullstack Developer specializing in Go, React, and Apache Spark.',
+    title: 'Ashlesh | Software Engineer I | Backend, Distributed Systems & AI',
+    description: 'Software Engineer I specializing in backend engineering, distributed systems, and AI systems (LLMs & RAG).',
   },
   icons: {
     icon: '/icon.svg',
@@ -39,8 +39,8 @@ const jsonLd = {
   '@type': 'Person',
   name: 'Ashlesh',
   url: 'https://ashlesh.co.in',
-  jobTitle: 'SDE Intern & Fullstack Developer',
-  description: 'Software Development Engineer Intern specializing in Go, React, and Spark.',
+  jobTitle: 'Software Engineer I',
+  description: 'Software Engineer I specializing in backend engineering, distributed systems, and AI systems (LLMs & RAG).',
   sameAs: [
     'https://github.com/ashlesh-t',
     'https://www.linkedin.com/in/ashlesha-t-752823269/',
