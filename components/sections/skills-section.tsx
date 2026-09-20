@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useMemo, useRef, useCallback } from "react"
+import { useState, useEffect, useMemo, useRef, useCallback, type PointerEvent as ReactPointerEvent } from "react"
 import { Canvas, useFrame } from "@react-three/fiber"
 import * as THREE from "three"
 import { motion, AnimatePresence } from "framer-motion"
@@ -28,6 +28,7 @@ interface SkillNode {
   tagline: string
   accent: string
   icon: LucideIcon
+  logoSrc?: string
   domain: string
   usedFor: string
   ecosystem: string[]
@@ -41,6 +42,7 @@ const SKILL_NODES: SkillNode[] = [
     tagline: "Backend · JVM",
     accent: "#f89820",
     icon: Coffee,
+    logoSrc: "/assets/icons/java.svg",
     domain: "Backend Language",
     usedFor: "Enterprise connector development and JVM concurrency-critical systems",
     ecosystem: ["Spring Boot", "Jakarta EE", "Multithreading", "JDBC"],
@@ -52,6 +54,7 @@ const SKILL_NODES: SkillNode[] = [
     tagline: "Systems · Concurrency",
     accent: "#00add8",
     icon: Zap,
+    logoSrc: "/assets/icons/go.svg",
     domain: "Systems Language",
     usedFor: "High-throughput, goroutine-based concurrent services",
     ecosystem: ["Goroutines", "Channels", "Kafka", "Kubernetes"],
@@ -63,6 +66,7 @@ const SKILL_NODES: SkillNode[] = [
     tagline: "AI/ML · Scripting",
     accent: "#facc15",
     icon: Terminal,
+    logoSrc: "/assets/icons/python.svg",
     domain: "Scripting & AI Language",
     usedFor: "Automation pipelines, agentic AI tooling, ML research",
     ecosystem: ["FastAPI", "PyTorch", "LangChain"],
@@ -74,6 +78,7 @@ const SKILL_NODES: SkillNode[] = [
     tagline: "Microservices",
     accent: "#6dba26",
     icon: Layers,
+    logoSrc: "/assets/icons/springboot.svg",
     domain: "Backend Framework",
     usedFor: "Production REST APIs and enterprise service layers",
     ecosystem: ["Jakarta EE", "JDBC", "Microservices"],
@@ -85,6 +90,7 @@ const SKILL_NODES: SkillNode[] = [
     tagline: "Async APIs",
     accent: "#05998b",
     icon: Server,
+    logoSrc: "/assets/icons/fastapi.svg",
     domain: "Async Web Framework",
     usedFor: "High-performance Python APIs and WebSocket backends",
     ecosystem: ["WebSockets", "Pydantic", "Uvicorn"],
@@ -96,6 +102,7 @@ const SKILL_NODES: SkillNode[] = [
     tagline: "Event Streaming",
     accent: "#a78bfa",
     icon: Workflow,
+    logoSrc: "/assets/icons/apachekafka.svg",
     domain: "Event Streaming",
     usedFor: "Real-time log ingestion and streaming data pipelines",
     ecosystem: ["RabbitMQ", "Fluentd", "Elasticsearch"],
@@ -107,6 +114,7 @@ const SKILL_NODES: SkillNode[] = [
     tagline: "Relational DB",
     accent: "#4f9fd6",
     icon: Database,
+    logoSrc: "/assets/icons/postgresql.svg",
     domain: "Relational Database",
     usedFor: "Transactional persistence for production systems",
     ecosystem: ["JDBC", "MySQL", "SQL Server", "Oracle"],
@@ -118,6 +126,7 @@ const SKILL_NODES: SkillNode[] = [
     tagline: "NoSQL · Data",
     accent: "#47a248",
     icon: Boxes,
+    logoSrc: "/assets/icons/mongodb.svg",
     domain: "Document Database",
     usedFor: "Flexible-schema storage and aggregation-heavy workloads",
     ecosystem: ["Aggregation Framework", "Mongoose"],
@@ -129,6 +138,7 @@ const SKILL_NODES: SkillNode[] = [
     tagline: "DevOps · Deploy",
     accent: "#2496ed",
     icon: Container,
+    logoSrc: "/assets/icons/docker.svg",
     domain: "Containerization",
     usedFor: "Reproducible runtime environments and deployment",
     ecosystem: ["Kubernetes", "CI/CD"],
@@ -140,6 +150,7 @@ const SKILL_NODES: SkillNode[] = [
     tagline: "Orchestration",
     accent: "#326ce5",
     icon: Network,
+    logoSrc: "/assets/icons/kubernetes.svg",
     domain: "Container Orchestration",
     usedFor: "Scaling and self-healing distributed node deployments",
     ecosystem: ["Docker", "Elasticsearch"],
@@ -151,6 +162,7 @@ const SKILL_NODES: SkillNode[] = [
     tagline: "Cloud · Infra",
     accent: "#ff9900",
     icon: Cloud,
+    logoSrc: "/assets/icons/amazonaws.svg",
     domain: "Cloud Infrastructure",
     usedFor: "Compute and storage for deployed services",
     ecosystem: ["EC2", "S3", "IAM"],
@@ -186,32 +198,103 @@ const ELECTRON_ORBIT_MS = 7000
 
 const CORE_BASE_COLOR = "#00f0ff"
 
-function ReactorCore({ boosted, impactColor }: { boosted: boolean; impactColor: string }) {
-  const meshRef = useRef<THREE.Mesh>(null)
-  const materialRef = useRef<THREE.MeshBasicMaterial>(null)
+// The reactor's nucleus is a tesseract (4D hypercube): 16 vertices at every
+// combination of (±1,±1,±1,±1), connected wherever two vertices differ in
+// exactly one coordinate (32 edges). Rotating in 4D and perspective-projecting
+// down to 3D each frame is what gives it the "impossible" tumbling look.
+const TESSERACT_VERTICES: [number, number, number, number][] = Array.from({ length: 16 }, (_, i) => [
+  i & 1 ? 1 : -1,
+  i & 2 ? 1 : -1,
+  i & 4 ? 1 : -1,
+  i & 8 ? 1 : -1,
+])
+
+const TESSERACT_EDGES: [number, number][] = (() => {
+  const edges: [number, number][] = []
+  for (let a = 0; a < TESSERACT_VERTICES.length; a++) {
+    for (let b = a + 1; b < TESSERACT_VERTICES.length; b++) {
+      let diff = 0
+      for (let k = 0; k < 4; k++) if (TESSERACT_VERTICES[a][k] !== TESSERACT_VERTICES[b][k]) diff++
+      if (diff === 1) edges.push([a, b])
+    }
+  }
+  return edges
+})()
+
+function TesseractCore({
+  boosted,
+  displayColor,
+  solid,
+  dragRotation,
+}: {
+  boosted: boolean
+  displayColor: string
+  solid: boolean
+  dragRotation: { xw: number; yz: number }
+}) {
+  const groupRef = useRef<THREE.Group>(null)
+  const materialRef = useRef<THREE.LineBasicMaterial>(null)
   const currentBoost = useRef(1)
   const targetColor = useRef(new THREE.Color(CORE_BASE_COLOR))
   const baseColor = useMemo(() => new THREE.Color(CORE_BASE_COLOR), [])
 
+  const geometry = useMemo(() => {
+    const geo = new THREE.BufferGeometry()
+    geo.setAttribute("position", new THREE.BufferAttribute(new Float32Array(TESSERACT_EDGES.length * 6), 3))
+    return geo
+  }, [])
+
   useFrame(({ clock }) => {
-    if (!meshRef.current || !materialRef.current) return
+    if (!groupRef.current || !materialRef.current) return
     const t = clock.getElapsedTime()
+
+    const angleXW = t * 0.35 + dragRotation.xw
+    const angleYZ = t * 0.25 + dragRotation.yz
+    const angleZW = t * 0.18
+    const cosXW = Math.cos(angleXW)
+    const sinXW = Math.sin(angleXW)
+    const cosYZ = Math.cos(angleYZ)
+    const sinYZ = Math.sin(angleYZ)
+    const cosZW = Math.cos(angleZW)
+    const sinZW = Math.sin(angleZW)
+
+    const projected: [number, number, number][] = TESSERACT_VERTICES.map(([vx, vy, vz, vw]) => {
+      let x = vx * cosXW - vw * sinXW
+      let w = vx * sinXW + vw * cosXW
+      let y = vy * cosYZ - vz * sinYZ
+      let z = vy * sinYZ + vz * cosYZ
+      const z2 = z * cosZW - w * sinZW
+      const w2 = z * sinZW + w * cosZW
+      z = z2
+      w = w2
+      const factor = (1 / (2.2 - w)) * 1.6
+      return [x * factor, y * factor, z * factor]
+    })
+
+    const positions = geometry.attributes.position.array as Float32Array
+    TESSERACT_EDGES.forEach(([a, b], idx) => {
+      const o = idx * 6
+      positions.set(projected[a], o)
+      positions.set(projected[b], o + 3)
+    })
+    geometry.attributes.position.needsUpdate = true
+
     const pulse = 1 + Math.sin(t * 1.5) * 0.08
     currentBoost.current += ((boosted ? 1.5 : 1) - currentBoost.current) * 0.1
-    meshRef.current.scale.setScalar(pulse * currentBoost.current)
-    meshRef.current.rotation.y += 0.003
-    meshRef.current.rotation.x += 0.001
+    groupRef.current.scale.setScalar(pulse * currentBoost.current)
 
-    // Flash to the impacting skill's colour, then ease back to the base cyan.
-    targetColor.current.set(boosted ? impactColor : CORE_BASE_COLOR)
-    materialRef.current.color.lerp(targetColor.current, boosted ? 0.35 : 0.08)
+    // Hover snaps fast to a solid colour and holds; impact flashes in, then
+    // everything eases back toward the base cyan once both are inactive.
+    targetColor.current.set(displayColor)
+    materialRef.current.color.lerp(targetColor.current, solid ? 0.45 : boosted ? 0.35 : 0.08)
   })
 
   return (
-    <mesh ref={meshRef}>
-      <icosahedronGeometry args={[0.85, 1]} />
-      <meshBasicMaterial ref={materialRef} color={baseColor} wireframe transparent opacity={0.55} />
-    </mesh>
+    <group ref={groupRef}>
+      <lineSegments geometry={geometry}>
+        <lineBasicMaterial ref={materialRef} color={baseColor} transparent opacity={0.8} />
+      </lineSegments>
+    </group>
   )
 }
 
@@ -275,12 +358,22 @@ function AmbientParticles() {
   )
 }
 
-function ReactorScene({ boosted, impactColor }: { boosted: boolean; impactColor: string }) {
+function ReactorScene({
+  boosted,
+  displayColor,
+  solid,
+  dragRotation,
+}: {
+  boosted: boolean
+  displayColor: string
+  solid: boolean
+  dragRotation: { xw: number; yz: number }
+}) {
   return (
     <Canvas camera={{ position: [0, 0, 5.5], fov: 50 }} gl={{ antialias: true, alpha: true }}>
       <ambientLight intensity={0.6} />
       <ReactorRings />
-      <ReactorCore boosted={boosted} impactColor={impactColor} />
+      <TesseractCore boosted={boosted} displayColor={displayColor} solid={solid} dragRotation={dragRotation} />
       <AmbientParticles />
     </Canvas>
   )
@@ -363,22 +456,19 @@ function ElectronOrbit({ node, x, y }: { node: SkillNode; x: number; y: number }
           borderColor: `${node.accent}33`,
         }}
       />
-      <motion.div
-        className="absolute inset-0"
-        animate={{ rotate: 360 }}
-        transition={{ duration: durationS, repeat: Infinity, ease: "linear" }}
-      >
-        {items.map((label, i) => {
-          const angle = (i / items.length) * 360
-          return (
-            <div
-              key={label}
-              className="absolute left-0 top-0"
-              style={{ transform: `rotate(${angle}deg) translateX(${ELECTRON_ORBIT_RADIUS}px)` }}
-            >
+      {items.map((label, i) => {
+        const angle = (i / items.length) * 360
+        return (
+          <motion.div
+            key={label}
+            className="absolute left-0 top-0"
+            animate={{ rotate: [angle, angle + 360] }}
+            transition={{ duration: durationS, repeat: Infinity, ease: "linear" }}
+          >
+            <div style={{ transform: `translateX(${ELECTRON_ORBIT_RADIUS}px)` }}>
               <motion.div
                 className="flex items-center gap-1.5 -translate-x-1/2 -translate-y-1/2"
-                animate={{ rotate: -360 }}
+                animate={{ rotate: [-angle, -(angle + 360)] }}
                 transition={{ duration: durationS, repeat: Infinity, ease: "linear" }}
               >
                 <span
@@ -397,9 +487,9 @@ function ElectronOrbit({ node, x, y }: { node: SkillNode; x: number; y: number }
                 </span>
               </motion.div>
             </div>
-          )
-        })}
-      </motion.div>
+          </motion.div>
+        )
+      })}
     </motion.div>
   )
 }
@@ -435,8 +525,18 @@ export function SkillsSection() {
   const [selected, setSelected] = useState<SkillNode>(SKILL_NODES[0])
   const [firingId, setFiringId] = useState<string | null>(null)
   const [boosted, setBoosted] = useState(false)
+  const [hoveredId, setHoveredId] = useState<string | null>(null)
+  const [dragRotation, setDragRotation] = useState({ xw: 0, yz: 0 })
+  const [igniting, setIgniting] = useState(false)
+  const [shockwaveKey, setShockwaveKey] = useState(0)
   const autoIndex = useRef(0)
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const dragState = useRef<{ dragging: boolean; lastX: number; lastY: number; moved: number }>({
+    dragging: false,
+    lastX: 0,
+    lastY: 0,
+    moved: 0,
+  })
 
   const positions = useRadialLayout(SKILL_NODES.length)
 
@@ -468,6 +568,10 @@ export function SkillsSection() {
     timerRef.current = id
   }, [fire])
 
+  const pauseAutoCycle = useCallback(() => {
+    if (timerRef.current) clearInterval(timerRef.current)
+  }, [])
+
   useEffect(() => {
     restartAutoCycle()
     return () => {
@@ -482,10 +586,63 @@ export function SkillsSection() {
     restartAutoCycle()
   }
 
+  const handleNodeHoverStart = (node: SkillNode) => {
+    setHoveredId(node.id)
+    pauseAutoCycle()
+  }
+
+  const handleNodeHoverEnd = () => {
+    setHoveredId(null)
+    restartAutoCycle()
+  }
+
+  // Fire every node in a fast cascade, converging on the core in a burst —
+  // the nucleus's click "ignition" easter egg.
+  const igniteAll = useCallback(() => {
+    if (igniting) return
+    setIgniting(true)
+    const staggerMs = 40
+    SKILL_NODES.forEach((node, i) => {
+      setTimeout(() => fire(node), i * staggerMs)
+    })
+    const lastArrival = (SKILL_NODES.length - 1) * staggerMs + 650 + 350
+    setTimeout(() => setShockwaveKey((k) => k + 1), lastArrival - 200)
+    setTimeout(() => setIgniting(false), lastArrival + 700)
+  }, [fire, igniting])
+
+  const handleCorePointerDown = (e: ReactPointerEvent<HTMLDivElement>) => {
+    try {
+      e.currentTarget.setPointerCapture(e.pointerId)
+    } catch {
+      // Some synthetic/non-primary pointer events can't be captured; the
+      // drag/click detection below still works fine without capture.
+    }
+    dragState.current = { dragging: true, lastX: e.clientX, lastY: e.clientY, moved: 0 }
+  }
+
+  const handleCorePointerMove = (e: ReactPointerEvent<HTMLDivElement>) => {
+    if (!dragState.current.dragging) return
+    const dx = e.clientX - dragState.current.lastX
+    const dy = e.clientY - dragState.current.lastY
+    dragState.current.lastX = e.clientX
+    dragState.current.lastY = e.clientY
+    dragState.current.moved += Math.abs(dx) + Math.abs(dy)
+    setDragRotation((prev) => ({ xw: prev.xw + dx * 0.012, yz: prev.yz + dy * 0.012 }))
+  }
+
+  const handleCorePointerUp = () => {
+    const wasClick = dragState.current.moved < 6
+    dragState.current.dragging = false
+    if (wasClick) igniteAll()
+  }
+
   const firingIdx = firingId ? SKILL_NODES.findIndex((n) => n.id === firingId) : -1
   const firingPos = firingIdx >= 0 ? positions[firingIdx] : null
   const firingArc = firingIdx >= 0 ? arcControlPoint(firingPos!.x, firingPos!.y, firingIdx) : null
   const impactColor = firingIdx >= 0 ? SKILL_NODES[firingIdx].accent : CORE_BASE_COLOR
+  const hoveredAccent = hoveredId ? SKILL_NODES.find((n) => n.id === hoveredId)?.accent ?? null : null
+  const displayColor = hoveredAccent ?? impactColor
+  const shockwaveColor = firingIdx >= 0 ? SKILL_NODES[firingIdx].accent : CORE_BASE_COLOR
 
   const selectedIdx = SKILL_NODES.findIndex((n) => n.id === selected.id)
   const selectedPos = positions[selectedIdx]
@@ -511,22 +668,47 @@ export function SkillsSection() {
         {/* Desktop: radial reactor + HUD */}
         <div className="hidden md:grid grid-cols-12 gap-8 items-center">
           <div className="col-span-7 relative aspect-square w-full max-w-[640px] mx-auto">
-            {/* Plasma core bloom, tinted to the impacting skill's colour */}
+            {/* Plasma core bloom, tinted to the hovered/impacting skill's colour */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-[1]">
               <motion.div
                 className="w-24 h-24 rounded-full blur-3xl"
                 animate={{
-                  opacity: boosted ? 0.65 : 0.25,
-                  scale: boosted ? 1.5 : 1,
-                  backgroundColor: impactColor,
+                  opacity: hoveredId ? 0.75 : boosted ? 0.65 : 0.25,
+                  scale: hoveredId ? 1.4 : boosted ? 1.5 : 1,
+                  backgroundColor: displayColor,
                 }}
                 transition={{ duration: 0.4 }}
               />
             </div>
 
             <div className="absolute inset-0">
-              <ReactorScene boosted={boosted} impactColor={impactColor} />
+              <ReactorScene boosted={boosted} displayColor={displayColor} solid={hoveredId !== null} dragRotation={dragRotation} />
             </div>
+
+            {/* Shockwave burst on core ignition */}
+            <AnimatePresence>
+              {shockwaveKey > 0 && (
+                <motion.div
+                  key={shockwaveKey}
+                  className="absolute left-1/2 top-1/2 rounded-full border-2 pointer-events-none z-[9]"
+                  style={{ borderColor: shockwaveColor, marginLeft: -8, marginTop: -8, width: 16, height: 16 }}
+                  initial={{ opacity: 0.9, scale: 1 }}
+                  animate={{ opacity: 0, scale: 22 }}
+                  transition={{ duration: 0.7, ease: "easeOut" }}
+                />
+              )}
+            </AnimatePresence>
+
+            {/* Invisible drag/click overlay on the core: drag to spin the tesseract, click to ignite */}
+            <div
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full z-[6] cursor-grab active:cursor-grabbing"
+              style={{ width: "38%", height: "38%", touchAction: "none" }}
+              onPointerDown={handleCorePointerDown}
+              onPointerMove={handleCorePointerMove}
+              onPointerUp={handleCorePointerUp}
+              aria-label="Drag to rotate the reactor core, click to ignite"
+              role="button"
+            />
 
             {/* Persistent curved orbital connections from each node to the core */}
             <svg
@@ -584,11 +766,13 @@ export function SkillsSection() {
 
             {SKILL_NODES.map((node, i) => {
               const Icon = node.icon
-              const isActive = selected.id === node.id
+              const isActive = selected.id === node.id || hoveredId === node.id
               return (
                 <motion.button
                   key={node.id}
                   onClick={() => handleNodeClick(node, i)}
+                  onMouseEnter={() => handleNodeHoverStart(node)}
+                  onMouseLeave={handleNodeHoverEnd}
                   className="absolute -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center gap-1 group cursor-pointer"
                   style={{ left: `${positions[i].x}%`, top: `${positions[i].y}%` }}
                   whileHover={{ scale: 1.15 }}
@@ -603,10 +787,29 @@ export function SkillsSection() {
                       boxShadow: isActive ? `0 0 16px 1px ${node.accent}66` : "none",
                     }}
                   >
-                    <Icon
-                      className="w-5 h-5 transition-colors"
-                      style={{ color: isActive ? node.accent : `${node.accent}99` }}
-                    />
+                    {node.logoSrc ? (
+                      <span
+                        className="w-5 h-5 block transition-colors"
+                        role="img"
+                        aria-label={node.label}
+                        style={{
+                          backgroundColor: isActive ? node.accent : `${node.accent}99`,
+                          WebkitMaskImage: `url(${node.logoSrc})`,
+                          maskImage: `url(${node.logoSrc})`,
+                          WebkitMaskRepeat: "no-repeat",
+                          maskRepeat: "no-repeat",
+                          WebkitMaskSize: "contain",
+                          maskSize: "contain",
+                          WebkitMaskPosition: "center",
+                          maskPosition: "center",
+                        }}
+                      />
+                    ) : (
+                      <Icon
+                        className="w-5 h-5 transition-colors"
+                        style={{ color: isActive ? node.accent : `${node.accent}99` }}
+                      />
+                    )}
                   </span>
                   <span
                     className={`text-[10px] font-mono uppercase tracking-wider transition-colors whitespace-nowrap ${
@@ -633,7 +836,7 @@ export function SkillsSection() {
         {/* Mobile fallback: chip row + HUD, smaller reactor */}
         <div className="md:hidden">
           <div className="relative h-52 mb-8 opacity-70">
-            <ReactorScene boosted={boosted} impactColor={impactColor} />
+            <ReactorScene boosted={boosted} displayColor={displayColor} solid={false} dragRotation={dragRotation} />
           </div>
           <div className="flex flex-wrap gap-2 justify-center mb-8">
             {SKILL_NODES.map((node, i) => {
@@ -652,7 +855,26 @@ export function SkillsSection() {
                     color: isActive ? node.accent : undefined,
                   }}
                 >
-                  <Icon className="w-3.5 h-3.5" />
+                  {node.logoSrc ? (
+                    <span
+                      className="w-3.5 h-3.5 block"
+                      role="img"
+                      aria-label={node.label}
+                      style={{
+                        backgroundColor: isActive ? node.accent : "currentColor",
+                        WebkitMaskImage: `url(${node.logoSrc})`,
+                        maskImage: `url(${node.logoSrc})`,
+                        WebkitMaskRepeat: "no-repeat",
+                        maskRepeat: "no-repeat",
+                        WebkitMaskSize: "contain",
+                        maskSize: "contain",
+                        WebkitMaskPosition: "center",
+                        maskPosition: "center",
+                      }}
+                    />
+                  ) : (
+                    <Icon className="w-3.5 h-3.5" />
+                  )}
                   {node.label}
                 </button>
               )
