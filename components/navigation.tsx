@@ -8,12 +8,11 @@ import { Menu, X, Brain } from "lucide-react"
 const navItems = [
   { label: "About", href: "#about" },
   { label: "Experience", href: "#experience" },
+  { label: "Skills", href: "#skills" },
   { label: "Projects", href: "#projects" },
-  { label: "Research", href: "#research" },
   { label: "Publications", href: "#publications" },
   { label: "Achievements", href: "#achievements" },
   { label: "Certifications", href: "#certifications" },
-  { label: "GitHub", href: "#github" },
   { label: "Blog", href: "#blog" },
   { label: "Contact", href: "#contact" },
 ]

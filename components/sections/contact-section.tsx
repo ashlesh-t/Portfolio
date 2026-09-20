@@ -40,16 +40,23 @@ export function ContactSection() {
     e.preventDefault()
     setIsSubmitting(true)
     setError(null)
-    
+
     try {
-      const subject = encodeURIComponent(`${formData.type.toUpperCase()}: ${formData.subject}`)
-      const body = encodeURIComponent(`${formData.message}\n\nFrom: ${formData.name}\nEmail: ${formData.email}`)
-      window.location.href = `mailto:ashleshat5@gmail.com?subject=${subject}&body=${body}`
-      
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      })
+
+      if (!response.ok) {
+        const data = await response.json().catch(() => ({}))
+        throw new Error(data.error || "Failed to send message")
+      }
+
       setIsSubmitted(true)
       setFormData(initialFormData)
     } catch (err) {
-      setError("Failed to open email client. Please try again.")
+      setError(err instanceof Error ? err.message : "Failed to send message. Please try again.")
     } finally {
       setIsSubmitting(false)
     }
